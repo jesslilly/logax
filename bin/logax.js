@@ -3,7 +3,7 @@ var util = require( "util" );
 var logax = require( "./logaxnm" );
 var argv = require('optimist').usage(
 'Usage: $0 --searchStrings file --input infile --output outfile').demand(
-[ 'searchStrings', 'input', 'outfile' ]).describe(
+[ 'searchStrings', 'input', 'output' ]).describe(
 'searchStrings',
 'A js file with the search strings.  See the template.  ').describe(
 'input',
