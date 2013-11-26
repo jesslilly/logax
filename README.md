@@ -1,4 +1,4 @@
-`logax` and `onceler`, parse text files for strings and output as json.
+`logax.js` and `onceler.js`, parse text files for strings and output as json.
 
 # User Documentation
 
@@ -8,13 +8,13 @@ You want to "grep" for many different search strings within those files and outp
 a common format like json or csv.  You can subsequently insert the data into a database
 for further processing and reporting.  Then this is the tool for you.
 
-## Onceler
-Onceler is a node.js command line program that processes files 'once'.  You provide
-a json file with the file name globs you want to process.  Onceler keeps track of 
+## onceler.js
+`onceler.js` is a node.js command line program that processes files 'once'.  You provide
+a json file with the file name globs you want to process.  `onceler.js` keeps track of 
 which files have been processed already.
 
-## Logax
-Logax is a little guy who hacks up your log files.  (Or text files)  Logax will
+## logax.js
+`logax.js` is a little guy who hacks up your log files.  (Or text files)  `logax.js` will
 accept a json file as input and use the search strings (regex strings) in the json
 to parse a file.
 
