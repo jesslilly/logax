@@ -1,4 +1,4 @@
-logax and onceler, parse text files for strings and output as json
+`logax` and `onceler`, parse text files for strings and output as json.
 
 # User Documentation
 
