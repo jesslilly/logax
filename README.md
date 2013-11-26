@@ -25,6 +25,7 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 * Intelligently process truncated log files
 * Output various json hierarchies
+* Search for strings on more than one line.  (Containing newlines)
 
 ### Tools
 

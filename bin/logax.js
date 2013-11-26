@@ -11,4 +11,11 @@ var argv = require('optimist').usage(
 'output',
 'Output file name and type (must be csv or json).').argv;
 
-util.puts( "Hello world!" );
+util.puts( "Begin logax.js at " + new Date().toISOString() );
+
+logax.parse(argv.searchStrings, argv.input, argv.output, function() {
+
+	util.puts( "  End logax.js at " + new Date().toISOString() );
+
+});
+
