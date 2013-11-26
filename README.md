@@ -19,7 +19,7 @@ accept a json file as input and use the search strings (regex strings) in the js
 to parse a file.
 
 ## Caveats
-This tools was developed for unstructured log files.  There is no problem using it
+This tool was developed for unstructured log files.  There is no problem using it
 for any kind of text file regex parsing, but other tools may do a better job.  For
 example, if you want to parse html, xml or some other structured file format, you
 may want to try a parser for that markup.  It's your call.
