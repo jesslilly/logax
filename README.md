@@ -20,6 +20,12 @@ to parse a file it is given.
 
 # Developer Documentation
 
+Contributions are welcome.  Make sure changes have tests.
+
+### Future Enhancements
+* Process log files that are truncated intelligently
+* Output various json hierarchies
+
 ### Tools
 
 Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
@@ -27,7 +33,7 @@ Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
 
 Nodeclipse is free open-source project that grows with your contributions.
 
-## A Note on Egit
+### A Note on Egit
 
 I am using EGit with eclipse and I have gone against the 
 [EGit recommended settings](http://wiki.eclipse.org/EGit/User_Guide#Considerations_for_Git_Repositories_to_be_used_in_Eclipse)
