@@ -1,4 +1,4 @@
-`logax.js` and `onceler.js`, parse text files for strings and output as json.
+`logax.js` and `onceler.js`: parse text files with regex strings and output as json.
 
 # User Documentation
 
@@ -18,6 +18,12 @@ which files have been processed already.
 accept a json file as input and use the search strings (regex strings) in the json
 to parse a file.
 
+## Caveats
+This tools was developed for unstructured log files.  There is no problem using it
+for any kind of text file regex parsing, but other tools may do a better job.  For
+example, if you want to parse html, xml or some other structured file format, you
+may want to try a parser for that markup.  It's your call.
+
 # Developer Documentation
 
 Contributions are welcome.  Make sure changes have tests.
@@ -26,6 +32,7 @@ Contributions are welcome.  Make sure changes have tests.
 * Intelligently process truncated log files
 * Output various json hierarchies
 * Search for strings on more than one line.  (Containing newlines)
+* Allow search strings to be in xpath for true XML parsing?
 
 ### Tools
 
