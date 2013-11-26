@@ -16,14 +16,14 @@ which files have been processed already.
 ## Logax
 Logax is a little guy who hacks up your log files.  (Or text files)  Logax will
 accept a json file as input and use the search strings (regex strings) in the json
-to parse a file it is given.
+to parse a file.
 
 # Developer Documentation
 
 Contributions are welcome.  Make sure changes have tests.
 
 ### Future Enhancements
-* Process log files that are truncated intelligently
+* Intelligently process truncated log files
 * Output various json hierarchies
 
 ### Tools
