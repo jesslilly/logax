@@ -1,0 +1,22 @@
+{
+  "name": "logax",
+  "version": "0.1.0",
+  "description": "logax",
+  "main": "bin/logax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "Node.js",
+    "Eclipse",
+    "Nodeclipse"
+  ],
+  "author": "",
+  "license": "None yet",
+  "readmeFilename": "README.md",
+  "dependencies": {
+	    "jasmine-node": "1.10.x",
+	    "optimist": "0.6.x"
+	  }
+}
