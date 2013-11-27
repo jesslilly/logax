@@ -1,11 +1,11 @@
 
-var convertToISO = function() {
-	var date = new Date(arguments.$1);
+var convertToISO = function(captures) {
+	var date = new Date(captures[1]);
 	return date.toISOString();
 };
 
-var calcArea = function() {
-	return (arguments.$2 - arguments.$1) * (arguments.$4 - arguments.$3);
+var calcArea = function(captures) {
+	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
 };
 
 exports.searchStrings = function() {
