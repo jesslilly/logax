@@ -29,10 +29,14 @@ may want to try a parser for that markup.  It's your call.
 Contributions are welcome.  Make sure changes have tests.
 
 ### Future Enhancements
-* Intelligently process truncated log files
-* Output various json hierarchies
-* Search for strings on more than one line.  (Containing newlines)
-* Allow search strings to be in xpath for true XML parsing?
+This is roughly in priority order.
+
+1. Change the logax command to be a bash/bat script that calls logax.js
+1. Output CSV or JSON.  Only json is supported right now.
+1. Output various json hierarchies
+1. Intelligently process truncated log files
+1. Search for strings on more than one line.  (Containing newlines)
+1. Allow search strings to be in xpath for true XML parsing?
 
 ### Tools
 
