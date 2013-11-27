@@ -1,34 +1,27 @@
 var fs = require('fs');
 var logax = require('../bin/logaxnm.js');
 
-/* jasmine specs for logaxnm */
-describe('logaxnm', function() {
+describe('Logax constructor', function() {
 
-	console.info('Running tests for logaxnm');
-
-	// -----------------------------------------
-	console.info('Test the Logax constructor.');
-	// -----------------------------------------
 	it('should throw an exception when not all args passed.', function() {
 		expect(function() {
-			var l1 = new logax.Logax({
+			new logax.Logax({
 				parserFile : "abc.js",
 				input : "in.log"
 			});
 		}).toThrow();
 	});
+});
 
-	// -----------------------------------------
-	console.info('Test the parse method.');
-	// -----------------------------------------
+describe('Logax parse', function() {
 	var FOOLOG_OUTPUT = {
 		"jobId" : "12345",
 		"email" : "abc@abc.com",
 		"logVersion" : "1.0.0",
-		"startAt" : "2013-11-26T19:50:43Z",
-		"area" : "7194601",
+		"startAt" : "2013-11-26T18:50:43.000Z",
+		"area" : 7194601,
 		"elapsedTime" : "1000",
-		"endAt" : "2013-11-26T19:50:44Z"
+		"endAt" : "2013-11-26T18:50:44.000Z"
 	};
 	var asyncFinished = false;
 	var fileData = "";
@@ -52,14 +45,14 @@ describe('logaxnm', function() {
 		});
 	});
 
-	it('should contain the correct json', function() {
+	it('should output the correct json', function() {
 		waitsFor(function() {
 			return asyncFinished;
 		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			fileData = fs.readFileSync('output/foolog1.json');
-			expect(fileData).toEqual(JSON.stringify(FOOLOG_OUTPUT));
+			fileData = fs.readFileSync('test/output/foolog1.json');
+			expect(JSON.parse(fileData)).toEqual(FOOLOG_OUTPUT);
 		});
 	});
 

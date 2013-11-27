@@ -30,7 +30,7 @@ var Logax = function(args) {
 	var input = args.input;
 	var output = args.output;
 	var retObj = {};
-	// TODO: Better way to do this
+	// TODO: Better way to do this?
 	var searches = require("../" + parserFile).searchStrings();
 	
 	/**
@@ -117,10 +117,8 @@ var Logax = function(args) {
 			}).on('close', function() {
 				
 				// Reached EOF.
-				// TODO: Write file.
-				console.info(retObj);
-
-				cb.call(null);
+				// Write output file.
+				fs.writeFile(output, JSON.stringify(retObj), cb);
 			});
 
 		} catch (err) {
