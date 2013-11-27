@@ -17,6 +17,7 @@ describe('logaxnm', function() {
 
 	var logax = require('../bin/logaxnm.js');
 
+	// TODO: Tests are not being run due to async issue.
 	logax.parse('test/foolog/foolog_parser.js', 'test/foolog/foolog1.log', 'test/output/foolog1.json', function() {
 
 		it('should create a json file', function() {
