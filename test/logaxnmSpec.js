@@ -17,31 +17,31 @@ describe('logaxnm', function() {
 
 	var logax = require('../bin/logaxnm.js');
 
-	// TODO: Tests are not being run due to async issue.
+	var asyncFinished = false;
+	var fileData = "";
 	logax.parse('test/foolog/foolog_parser.js', 'test/foolog/foolog1.log', 'test/output/foolog1.json', function() {
+		asyncFinished = true;
+	});
 
-		it('should create a json file', function() {
+	it('should create a json file', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
+		runs(function() {
 			var exists = fs.existsSync('test/output/foolog1.json');
 			expect(exists).toEqual(true);
 		});
+	});
 
-		it('should contain the correct json', function() {
+	it('should contain the correct json', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
-			var asyncFinished = false;
-			var fileData = "";
-			fs.readFile('output/foolog1.json', function(err, data) {
-				fileData = data;
-				asyncFinished = true;
-			});
-
-			waitsFor(function() {
-				return asyncFinished;
-			}, "readFile never completed", 10000);
-
-			runs(function() {
-				expect(fileData).toEqual(JSON.stringify(FOOLOG_OUTPUT));
-			});
+		runs(function() {
+			fileData = fs.readFileSync('output/foolog1.json');
+			expect(fileData).toEqual(JSON.stringify(FOOLOG_OUTPUT));
 		});
 	});
 

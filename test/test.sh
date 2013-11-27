@@ -1,7 +1,7 @@
 #!/bin/bash
 ./node_modules/jasmine-node/bin/jasmine-node test/logaxnmSpec.js
 
-if [[ 1=0 ]]
+if [[ 1 == 0 ]]
 then
 	bin/logax.js --searchStrings test/foolog/foolog_parser.js \
 		--input test/foolog/foolog1.log \
