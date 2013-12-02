@@ -127,6 +127,8 @@ var Logax = function(args) {
 		}
 
 	};
+	
+	return this;
 
 };
 module.exports = Logax;
