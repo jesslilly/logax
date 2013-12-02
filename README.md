@@ -32,6 +32,7 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
+1. Get this into npm.
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
 1. Output various json hierarchies
