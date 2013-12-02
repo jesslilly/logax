@@ -1,4 +1,5 @@
 var fs = require('fs');
+var common = require('../bin/common');
 
 /**
  * @constructor
@@ -14,16 +15,7 @@ var fs = require('fs');
 var Logax = function(args) {
 
 	// Parameter checking
-	var reqArgs = [ "parserFile", "input", "output" ];
-	var missingArg = false;
-	for ( var idx = 0; idx < reqArgs.length; idx += 1) {
-		if (!(reqArgs[idx] in args)) {
-			missingArg = true;
-		}
-	}
-	if (missingArg) {
-		throw new Error("You must pass in arguments: " + reqArgs);
-	}
+	common.validateArgs([ "parserFile", "input", "output" ], args);
 
 	// Private variables
 	var parserFile = args.parserFile;
