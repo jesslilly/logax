@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var util = require( "util" );
-var Logax = require( "./logaxnm" ).Logax;
+var Logax = require( "./logaxnm" );
 var argv = require('optimist').usage(
 'Usage: $0 --parserFile file --input infile --output outfile').demand(
 [ 'parserFile', 'input', 'output' ]).describe(

@@ -129,4 +129,4 @@ var Logax = function(args) {
 	};
 
 };
-exports.Logax = Logax;
+module.exports = Logax;

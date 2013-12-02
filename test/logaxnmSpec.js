@@ -1,5 +1,5 @@
 var fs = require('fs');
-var Logax = require('../bin/logaxnm.js').Logax;
+var Logax = require('../bin/logaxnm.js');
 
 describe('Logax constructor', function() {
 
