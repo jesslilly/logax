@@ -3,7 +3,8 @@
 # User Documentation
 
 ## Use Case
-Say you have a bunch of log files or html files or any kind of text file for that matter laying around.
+Log data mining.  Say you have a bunch of web/app log files or html files or any kind of 
+text file for that matter laying around.
 You want to "grep" for many different search strings within those files and output to 
 a common format like json or csv.  You can subsequently insert the data into a database
 for further processing and reporting.  Then this is the tool for you.
@@ -31,7 +32,7 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Change the logax command to be a bash/bat script that calls logax.js
+1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
 1. Output various json hierarchies
 1. Intelligently process truncated log files

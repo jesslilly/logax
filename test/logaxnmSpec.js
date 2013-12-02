@@ -1,11 +1,11 @@
 var fs = require('fs');
-var logax = require('../bin/logaxnm.js');
+var Logax = require('../bin/logaxnm.js').Logax;
 
 describe('Logax constructor', function() {
 
 	it('should throw an exception when not all args passed.', function() {
 		expect(function() {
-			new logax.Logax({
+			new Logax({
 				parserFile : "abc.js",
 				input : "in.log"
 			});
@@ -25,7 +25,7 @@ describe('Logax parse', function() {
 	};
 	var asyncFinished = false;
 	var fileData = "";
-	var l2 = new logax.Logax({
+	var l2 = new Logax({
 		parserFile : 'test/foolog/foolog_parser.js',
 		input : 'test/foolog/foolog1.log',
 		output : 'test/output/foolog1.json'
