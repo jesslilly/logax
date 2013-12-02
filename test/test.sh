@@ -1,5 +1,6 @@
 #!/bin/bash
 ./node_modules/jasmine-node/bin/jasmine-node test/logaxnmSpec.js
+./node_modules/jasmine-node/bin/jasmine-node test/oncelernmSpec.js
 
 if [[ 1 == 0 ]]
 then
