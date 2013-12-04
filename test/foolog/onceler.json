@@ -1,0 +1,5 @@
+{
+	"filesToProcess" : [ "test/foolog/foolog*.log", "test/foolog/more/foolog*.log" ],
+	"command" : "bin/logax.js --parserFile test/foolog/foolog_parser.js --input %s --output %s",
+	"workingDir" : "/tmp"
+}
