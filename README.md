@@ -12,7 +12,9 @@ for further processing and reporting.  Then this is the tool for you.
 ## onceler.js
 `onceler.js` is a node.js command line program that processes files 'once'.  You provide
 a json file with the file name globs you want to process.  `onceler.js` keeps track of 
-which files have been processed already.
+which files have been processed already using dates.  `onceler.js` will search for 'new'
+files working forward in time.  Onceler is intended to be run from a cron
+or a scheduled task.
 
 ## logax.js
 `logax.js` is a little guy who hacks up your log files.  (Or text files)  `logax.js` will

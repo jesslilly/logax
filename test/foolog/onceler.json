@@ -1,5 +1,9 @@
 {
-	"filesToProcess" : [ "test/foolog/foolog*.log", "test/foolog/more/foolog*.log" ],
+	"searchDirs" : [ "test/foolog", "test/foolog2" ],
+	"fileGlob" : "foolog*.log",
 	"command" : "bin/logax.js --parserFile test/foolog/foolog_parser.js --input %s --output %s",
-	"workingDir" : "/tmp"
+	"workingDir" : "/tmp",
+	"olderThan" : "2013-12-01 00:00:00",
+	"newerThan" : "2013-11-01 00:00:00",
+	"maxFiles" : "2"
 }

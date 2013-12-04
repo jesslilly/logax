@@ -3,11 +3,9 @@ var util = require( "util" );
 var Onceler = require( "./oncelernm" );
 var argv = require('optimist').usage(
 'Usage: $0 --cfgFile file').demand(
-[ 'cfgFile', 'max' ]).describe(
+[ 'cfgFile' ]).describe(
 'cfgFile',
-'A json file with the text file globs and command to run.  See the template.').describe(
-'max',
-'The max number of files to process.  This is intended to run as a cron.').argv;
+'A json file with the text file globs and command to run.  See the template.').argv;
 
 util.puts( "Begin onceler.js at " + new Date().toISOString() );
 

@@ -1,6 +1,6 @@
 var fs = require('fs');
 var common = require('../bin/common');
-var glob = require('glob');
+var exec = require('child_process').exec, child;
 
 /**
  * @constructor
@@ -12,12 +12,11 @@ var glob = require('glob');
 var Onceler = function(args) {
 
 	// Parameter checking
-	common.validateArgs([ "cfgFile", "max" ], args);
+	common.validateArgs([ "cfgFile" ], args);
 
 	// Private variables
 	var cfgFile = args.cfgFile;
 	var cfg = {};
-	var max = args.max;
 	var self = this;
 
 	/**
@@ -41,18 +40,29 @@ var Onceler = function(args) {
 	/**
 	 * @method
 	 * @public
-	 * @description Return an array of files we can process.
+	 * @description Return an array of new files we can process.
 	 * @param {function}
 	 *            cb - callback when it's done (async).
 	 * @return {void}
 	 */
-	this.getFilesToProcess = function(cb) {
+	this.findNewFiles = function(cb) {
 
-		fs.readdir(cfg.filesToProcess[0], function(err, files) {
+		// TODO: Find a better cross-platform way to do this.
+		// TODO: Ask the question on SO.
+		
+		// Find new text files that have appeared since last time.
+		var findCmd = "";
+		findCmd += "find " + cfg.searchDirs.join(" ") + " ";
+		findCmd += "-newermt '" + cfg.newerThan + "' ";
+		findCmd += "-name '" + cfg.fileGlob + "' ";
+		findCmd += "-type f ";
+		// printf: %T = modified time, + = YYYY-MM-DD+HH:mm:SS.ms format, %p = file with path, \\n = newline
+		findCmd += "-printf '%T+ %p\\n' | sort ";
+		child = exec(findCmd, function(err, stdout, stderr) {
 			if (err) {
 				throw err;
 			}
-			cb.call(null, files);
+			cb.call(null, stdout.split("\n"));
 		});
 	};
 
@@ -70,10 +80,10 @@ var Onceler = function(args) {
 		try {
 
 			// Load config file.
-			this.loadCfgFile( function() {
-				self.getFilesToProcess( function(files) {
+			this.loadCfgFile(function() {
+				self.findNewFiles(function(files) {
 					console.info(files);
-					
+
 				});
 			});
 

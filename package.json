@@ -17,7 +17,6 @@
   "readmeFilename": "README.md",
   "dependencies": {
 	    "jasmine-node": "1.10.x",
-	    "optimist": "0.6.x",
-	    "glob": "3.2.x"
+	    "optimist": "0.6.x"
 	  }
 }
