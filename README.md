@@ -36,6 +36,7 @@ This is roughly in priority order.
 
 1. Get this into npm.
 1. Process multiple files to an array of js objects.
+1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
