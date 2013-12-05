@@ -4,7 +4,7 @@
   "description": "logax",
   "main": "bin/logax.js",
   "scripts": {
-    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+    "test": "test/test.sh"
   },
   "repository": "",
   "keywords": [
