@@ -1,4 +1,6 @@
 var fs = require('fs');
+var util = require('util');
+var path = require('path');
 var common = require('../bin/common');
 var exec = require('child_process').exec, child;
 
@@ -27,6 +29,7 @@ var Onceler = function(args) {
 	 *            cb - callback when it's done (async).
 	 * @return {void}
 	 */
+	// TODO: There might be a npm module to do this JSON file reading.
 	this.loadCfgFile = function(cb) {
 		fs.readFile(cfgFile, function(err, data) {
 			if (err) {
@@ -40,29 +43,108 @@ var Onceler = function(args) {
 	/**
 	 * @method
 	 * @public
-	 * @description Return an array of new files we can process.
+	 * @description Save the cfg to the json cfgFile.
 	 * @param {function}
 	 *            cb - callback when it's done (async).
 	 * @return {void}
+	 */
+	// TODO: There might be a npm module to do this JSON file reading.
+	this.saveCfgFile = function(cb) {
+		fs.writeFile(cfgFile, JSON.stringify(cfg, null, '\t'), function(err, data) {
+			if (err) {
+				throw err;
+			}
+			cb.call(null);
+		});
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description Return an array of new files we can process. Optimized for
+	 *              "new files" use case instead of many archived files.
+	 * @param {function}
+	 *            cb - callback when it's done (async).
+	 * @return {Array} - files - array of mtime, file objects.
 	 */
 	this.findNewFiles = function(cb) {
 
 		// TODO: Find a better cross-platform way to do this.
 		// TODO: Ask the question on SO.
-		
+
 		// Find new text files that have appeared since last time.
 		var findCmd = "";
 		findCmd += "find " + cfg.searchDirs.join(" ") + " ";
 		findCmd += "-newermt '" + cfg.newerThan + "' ";
 		findCmd += "-name '" + cfg.fileGlob + "' ";
 		findCmd += "-type f ";
-		// printf: %T = modified time, + = YYYY-MM-DD+HH:mm:SS.ms format, %p = file with path, \\n = newline
+		// printf: %T = modified time, + = YYYY-MM-DD+HH:mm:SS.ms format, %p =
+		// file with path, \\n = newline
 		findCmd += "-printf '%T+ %p\\n' | sort ";
+		findCmd += "| head -" + cfg.maxFiles + " ";
+		console.log(findCmd);
 		child = exec(findCmd, function(err, stdout, stderr) {
 			if (err) {
 				throw err;
 			}
-			cb.call(null, stdout.split("\n"));
+			console.log(stdout);
+			var files = stdout.split("\n").map(function(row, index) {
+				// TODO: I bet there is a cooler way to do this.
+				var dateFile = {};
+				dateFile.mtime = row.split(" ")[0].replace("+", " ");
+				dateFile.file = row.split(" ")[1];
+				return dateFile;
+			});
+			// Remove the last/bad element from the array. Split "\n" gave
+			// us a bad trailing element.
+			files.pop();
+			cb.call(null, files);
+		});
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description Process a list of mtime,file objects. Thanks to the async
+	 *              programming of node, These commands happen in "near"
+	 *              parallel. Sweeeeet.
+	 * @param {Array}
+	 *            files - list of mtime,file objects.
+	 * @param {function}
+	 *            cb - callback when it's done (async).
+	 * @return {void}
+	 */
+	this.processFiles = function(files, cb) {
+
+		files.forEach(function(file, idx) {
+
+			// Build the command.
+			// TODO: Move outputFile from onceler to logax since onceler has no
+			// idea if
+			// the outputFile should be json or csv or what.
+			var outputFile = path.join(cfg.workingDir, path.sep, path.basename(file.file));
+			var cmd = "";
+			cmd += util.format(cfg.command, file.file, outputFile);
+
+			// Process the file.
+			console.log(cmd);
+			child = exec(cmd, function(err, stdout, stderr) {
+				if (err) {
+					throw err;
+				}
+				console.log(stdout);
+
+				// Immediately update the cfg "newerThan" field.
+				// If this process is killed somewhere in between we
+				// reprocess only 1 file.
+				cfg.newerThan = file.mtime;
+				self.saveCfgFile(function() {
+					// On the last file, call back!
+					if (idx == files.length - 1) {
+						cb.call(null);
+					}
+				});
+			});
 		});
 	};
 
@@ -79,15 +161,17 @@ var Onceler = function(args) {
 
 		try {
 
-			// Load config file.
 			this.loadCfgFile(function() {
+
 				self.findNewFiles(function(files) {
-					console.info(files);
+
+					self.processFiles(files, function() {
+						// Done!
+						cb.call(null);
+					});
 
 				});
 			});
-
-			// Find a text file to work on.
 
 		} catch (err) {
 			console.error("onceler.process had a problem!  " + err);

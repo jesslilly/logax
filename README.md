@@ -31,10 +31,12 @@ may want to try a parser for that markup.  It's your call.
 
 Contributions are welcome.  Make sure changes have tests.
 
-### Future Enhancements
+### Future Enhancements (TODO)
 This is roughly in priority order.
 
 1. Get this into npm.
+1. Process multiple files to an array of js objects.
+1. Support Windows (Using *nix find command right now).
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
 1. Output various json hierarchies
