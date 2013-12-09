@@ -57,9 +57,8 @@ describe('Onceler saveCfgFile', function() {
 		cfgFile : "test/output/onceler.json"
 	});
 
-	// Subtest 1
 	o1.loadCfgFile(function() {
-		o1.setCfg('newerThan','2013-12-11 10:09:08.7654321');
+		o1.setCfg('newerThan', '2013-12-11 10:09:08.7654321');
 		o1.saveCfgFile(function() {
 			o1.loadCfgFile(function() {
 				asyncFinished = true;
@@ -67,7 +66,7 @@ describe('Onceler saveCfgFile', function() {
 		});
 	});
 
-	it('should load the cfg json file', function() {
+	it('should save the cfg json file', function() {
 		waitsFor(function() {
 			return asyncFinished;
 		}, "Onceler.saveCfgFile never completed.  Check for missing callback.", 10000);
@@ -121,4 +120,56 @@ describe('Onceler findNewFiles', function() {
 		});
 	});
 
+});
+
+describe('Onceler process (first batch)', function() {
+	var asyncFinished = false;
+	var exists = false;
+	var o1 = new Onceler({
+		cfgFile : "test/output/onceler.json"
+	});
+
+	o1.process(function() {
+		fs.exists('test/output/foolog1.log', function(exists1) {
+			fs.exists('test/output/foolog2.log', function(exists2) {
+				exists = exists1 && exists2;
+				asyncFinished = true;
+			});
+		});
+	});
+
+	it('should create 2 new output files', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "Onceler.process never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			expect(exists).toEqual(true);
+		});
+	});
+});
+
+describe('Onceler process (second batch)', function() {
+	var asyncFinished = false;
+	var exists = false;
+	var o1 = new Onceler({
+		cfgFile : "test/output/onceler2.json"
+	});
+
+	o1.process(function() {
+		fs.exists('test/output/foolog3.log', function(exists1) {
+			exists = exists1;
+			asyncFinished = true;
+		});
+	});
+
+	it('should create 1 new output file', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "Onceler.process never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			expect(exists).toEqual(true);
+		});
+	});
 });
