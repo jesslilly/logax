@@ -191,5 +191,20 @@ var Onceler = function(args) {
 		return cfg[key];
 	};
 
+	/**
+	 * @method
+	 * @public
+	 * @description Change a value in the cfg Object.
+	 * @param {string}
+	 *            key - Config key to change.
+	 * @param {object}
+	 *            value - New value.
+	 * @return {object} this - for chaining.
+	 */
+	this.setCfg = function(key, value) {
+		cfg[key] = value;
+		return this;
+	};
+
 };
 module.exports = Onceler;

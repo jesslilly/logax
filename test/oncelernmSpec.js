@@ -11,6 +11,7 @@ describe('Onceler constructor', function() {
 		}).toThrow();
 	});
 
+	// TODO: This should actually throw since the file does not exist.
 	it('should NOT throw an exception when all args passed.', function() {
 		expect(function() {
 			new Onceler({
@@ -18,15 +19,19 @@ describe('Onceler constructor', function() {
 			});
 		}).not.toThrow();
 	});
+
+	// TODO: Add test with existing file.
 });
 
 describe('Onceler loadCfgFile', function() {
 
+	// Load a config file and test contents.
+	var asyncFinished = false;
+
 	var o1 = new Onceler({
-		cfgFile : "test/foolog/onceler.json"
+		cfgFile : "test/output/onceler.json"
 	});
 
-	var asyncFinished = false;
 	o1.loadCfgFile(function() {
 		asyncFinished = true;
 	});
@@ -42,11 +47,42 @@ describe('Onceler loadCfgFile', function() {
 	});
 });
 
+describe('Onceler saveCfgFile', function() {
+
+	// 1. Save the config file with a change.
+	// 2. Load again and test saved values.
+	var asyncFinished = false;
+
+	var o1 = new Onceler({
+		cfgFile : "test/output/onceler.json"
+	});
+
+	// Subtest 1
+	o1.loadCfgFile(function() {
+		o1.setCfg('newerThan','2013-12-11 10:09:08.7654321');
+		o1.saveCfgFile(function() {
+			o1.loadCfgFile(function() {
+				asyncFinished = true;
+			});
+		});
+	});
+
+	it('should load the cfg json file', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "Onceler.saveCfgFile never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			expect(o1.getCfg("newerThan")).toEqual('2013-12-11 10:09:08.7654321');
+		});
+	});
+});
+
 describe('Onceler findNewFiles', function() {
 	var dateFiles = [];
 
 	var o1 = new Onceler({
-		cfgFile : "test/foolog/onceler.json"
+		cfgFile : "test/output/onceler.json"
 	});
 
 	var asyncFinished = false;
