@@ -23,8 +23,8 @@ exports.searchStrings = function() {
 		default: "1.0.0",
 		outputField : "logVersion"
 	}, {
-		searchFor : "^Begin foo log at (.*)$",
-		sample : "Begin foo log at Tue Nov 26 13:50:43 EST 2013",
+		searchFor : "^Begin job log at (.*)$",
+		sample : "Begin job log at Tue Nov 26 13:50:43 EST 2013",
 		converter: convertToISO,
 		outputField : "startAt"
 	}, {
@@ -37,8 +37,8 @@ exports.searchStrings = function() {
 		sample : "Elapsed time: 1000ms",
 		outputField : "elapsedTime"
 	}, {
-		searchFor : "^  End foo log at (.*)$",
-		sample : "  End foo log at Tue Nov 26 13:50:44 EST 2013",
+		searchFor : "^  End job log at (.*)$",
+		sample : "  End job log at Tue Nov 26 13:50:44 EST 2013",
 		converter: convertToISO,
 		outputField : "endAt"
 	} ];

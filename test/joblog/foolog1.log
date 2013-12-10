@@ -1,21 +1,19 @@
 
 =============================================
-Begin foo log at Tue Nov 26 13:51:43 EST 2013
+Begin job log at Tue Nov 26 13:50:43 EST 2013
 =============================================
-Foo log version: 2.0.1
 This is just some random log file you might get from an application.
-foo is a magical word
-timestamp: Tue Nov 26 13:51:43 EST 2013
-JobID: 12346
-email: def@abc.com
+job is a magical word
+timestamp: Tue Nov 26 13:50:43 EST 2013
+JobID: 12345
+email: abc@abc.com
 there are lots of things you might search for.
-This can happen: A 1300 B 1000 Linux 9000
 Dude, we just ran this sql: SELECT * FROM TABLE WHERE 1=1;
 Here is some json we may want to extract: { "a" : 1, "b" : 2, "c" : 3 }
 a,b,c
-This other thing can happen: 1 2400 1 3000
+This thing sometimes happens: 1 2400 1 3000
 some junk
-Elapsed time: 1001ms
+Elapsed time: 1000ms
 =============================================
-  End foo log at Tue Nov 26 13:51:44 EST 2013
+  End job log at Tue Nov 26 13:50:44 EST 2013
 =============================================

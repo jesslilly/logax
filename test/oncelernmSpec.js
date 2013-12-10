@@ -105,10 +105,10 @@ describe('Onceler findNewFiles', function() {
 	it('should find these new files', function() {
 		var expectedFiles = [ {
 			mtime : '2013-11-26 14:20:01.7723095220',
-			file : 'test/foolog/foolog1.log'
+			file : 'test/joblog/joblog1.log'
 		}, {
 			mtime : '2013-11-26 14:21:57.5167016480',
-			file : 'test/foolog/foolog2.log'
+			file : 'test/joblog/joblog2.log'
 		} ];
 
 		waitsFor(function() {
@@ -130,8 +130,8 @@ describe('Onceler process (first batch)', function() {
 	});
 
 	o1.process(function() {
-		fs.exists('test/output/foolog1.json', function(exists1) {
-			fs.exists('test/output/foolog2.json', function(exists2) {
+		fs.exists('test/output/joblog1.json', function(exists1) {
+			fs.exists('test/output/joblog2.json', function(exists2) {
 				exists = exists1 && exists2;
 				asyncFinished = true;
 			});
@@ -157,7 +157,7 @@ describe('Onceler process (second batch)', function() {
 	});
 
 	o1.process(function() {
-		fs.exists('test/output/foolog3.json', function(exists1) {
+		fs.exists('test/output/joblog3.json', function(exists1) {
 			exists = exists1;
 			asyncFinished = true;
 		});

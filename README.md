@@ -12,7 +12,7 @@ for further processing and reporting.  Then this is the tool for you.
 ## Example
 ### 1. Find a text file you want to mine.
 
-	Begin foo log at Tue Nov 26 13:50:43 EST 2013
+	Begin job log at Tue Nov 26 13:50:43 EST 2013
 	This is just some random log file you might get from an application.
 	JobID: 12345
  
@@ -27,8 +27,8 @@ for further processing and reporting.  Then this is the tool for you.
 ### 3. Run `logax.js` like this:
 
 	bin/logax.js --parserFile my_parser.js \
-		--input foolog1.log \
-		--output foolog1.json
+		--input joblog1.log \
+		--output joblog1.json
 
 ### 4. You get JSON output like this:
 

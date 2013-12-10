@@ -17,16 +17,16 @@ describe('Logax createOutputFileName', function() {
 
 	it('should create the correct output file name.', function() {
 		var l2 = new Logax({
-			parserFile : 'test/foolog/foolog_parser.js',
-			input : 'test/foolog/foolog1.log',
+			parserFile : 'test/joblog/joblog_parser.js',
+			input : 'test/joblog/joblog1.log',
 			outputDir : 'test/output'
 		});
-		expect(l2.createOutputFileName()).toEqual('test/output/foolog1.json');
+		expect(l2.createOutputFileName()).toEqual('test/output/joblog1.json');
 	});
 });
 
 describe('Logax parse', function() {
-	var FOOLOG_OUTPUT = [ {
+	var JOBLOG_OUTPUT = [ {
 		"jobId" : "12345",
 		"email" : "abc@abc.com",
 		"logVersion" : "1.0.0",
@@ -38,8 +38,8 @@ describe('Logax parse', function() {
 	var asyncFinished = false;
 	var fileData = "";
 	var l2 = new Logax({
-		parserFile : 'test/foolog/foolog_parser.js',
-		input : 'test/foolog/foolog1.log',
+		parserFile : 'test/joblog/joblog_parser.js',
+		input : 'test/joblog/joblog1.log',
 		outputDir : 'test/output'
 	});
 	l2.parse(function() {
@@ -52,7 +52,7 @@ describe('Logax parse', function() {
 		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			var exists = fs.existsSync('test/output/foolog1.json');
+			var exists = fs.existsSync('test/output/joblog1.json');
 			expect(exists).toEqual(true);
 		});
 	});
@@ -63,8 +63,8 @@ describe('Logax parse', function() {
 		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			fileData = fs.readFileSync('test/output/foolog1.json');
-			expect(JSON.parse(fileData)).toEqual(FOOLOG_OUTPUT);
+			fileData = fs.readFileSync('test/output/joblog1.json');
+			expect(JSON.parse(fileData)).toEqual(JOBLOG_OUTPUT);
 		});
 	});
 
