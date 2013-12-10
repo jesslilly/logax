@@ -130,8 +130,8 @@ describe('Onceler process (first batch)', function() {
 	});
 
 	o1.process(function() {
-		fs.exists('test/output/foolog1.log', function(exists1) {
-			fs.exists('test/output/foolog2.log', function(exists2) {
+		fs.exists('test/output/foolog1.json', function(exists1) {
+			fs.exists('test/output/foolog2.json', function(exists2) {
 				exists = exists1 && exists2;
 				asyncFinished = true;
 			});
@@ -157,7 +157,7 @@ describe('Onceler process (second batch)', function() {
 	});
 
 	o1.process(function() {
-		fs.exists('test/output/foolog3.log', function(exists1) {
+		fs.exists('test/output/foolog3.json', function(exists1) {
 			exists = exists1;
 			asyncFinished = true;
 		});

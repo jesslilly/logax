@@ -1,4 +1,6 @@
 var fs = require('fs');
+var path = require('path');
+var util = require('util');
 var common = require('../bin/common');
 
 /**
@@ -9,21 +11,33 @@ var common = require('../bin/common');
  * @param {string}
  *            input - path/file of the text file to parse
  * @param {string}
- *            output - path/file of the text file to write.
+ *            outputDir - path of the text file to write.
  * @return {object} this - for chaining.
  */
 var Logax = function(args) {
 
 	// Parameter checking
-	common.validateArgs([ "parserFile", "input", "output" ], args);
+	common.validateArgs([ "parserFile", "input", "outputDir" ], args);
 
 	// Private variables
+	var self = this;
 	var parserFile = args.parserFile;
 	var input = args.input;
-	var output = args.output;
+	var outputDir = args.outputDir;
 	var retObj = {};
 	// TODO: Better way to do this?
 	var searches = require("../" + parserFile).searchStrings();
+	
+	/**
+	 * @method
+	 * @private
+	 * @description Create an output file name using the input file name and
+	 *              outputDir and ".json".
+	 * @return {string} - output file name.
+	 */
+	this.createOutputFileName = function() {
+		return outFileName = outputDir +  path.sep + path.basename(input, path.extname(input)) + ".json";
+	};
 	
 	/**
 	 * @method
@@ -69,7 +83,7 @@ var Logax = function(args) {
 					message += "\nMatched text, capture(s): " + matchedText;
 					message += "\nConverter: " + search.converter;
 					message += "\nError: " + err;
-					console.error(message);
+					util.error(message);
 				}
 			} else {
 				// Default behavior is to grab $1.
@@ -110,11 +124,17 @@ var Logax = function(args) {
 				
 				// Reached EOF.
 				// Write output file.
-				fs.writeFile(output, JSON.stringify(retObj), cb);
+				var outputFile = self.createOutputFileName();
+				
+				// Create as tmp file in case some other process is looking for json files.
+				// Rename after the write is done.
+				fs.writeFile( outputFile + ".tmp", JSON.stringify(retObj, null, '\t'), function() {
+					fs.rename(outputFile + ".tmp", outputFile, cb);
+				});
 			});
 
 		} catch (err) {
-			console.error("logax.parse had a problem!  " + err);
+			util.error("logax.parse had a problem!  " + err);
 			cb.call(null);
 		}
 

@@ -13,6 +13,18 @@ describe('Logax constructor', function() {
 	});
 });
 
+describe('Logax createOutputFileName', function() {
+
+	it('should create the correct output file name.', function() {
+		var l2 = new Logax({
+			parserFile : 'test/foolog/foolog_parser.js',
+			input : 'test/foolog/foolog1.log',
+			outputDir : 'test/output'
+		});
+		expect(l2.createOutputFileName()).toEqual('test/output/foolog1.json');
+	});
+});
+
 describe('Logax parse', function() {
 	var FOOLOG_OUTPUT = {
 		"jobId" : "12345",
@@ -28,7 +40,7 @@ describe('Logax parse', function() {
 	var l2 = new Logax({
 		parserFile : 'test/foolog/foolog_parser.js',
 		input : 'test/foolog/foolog1.log',
-		output : 'test/output/foolog1.json'
+		outputDir : 'test/output'
 	});
 	l2.parse(function() {
 		asyncFinished = true;

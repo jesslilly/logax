@@ -82,12 +82,12 @@ var Onceler = function(args) {
 		// file with path, \\n = newline
 		findCmd += "-printf '%T+ %p\\n' | sort ";
 		findCmd += "| head -" + cfg.maxFiles + " ";
-		console.log(findCmd);
+		//console.log(findCmd);
 		child = exec(findCmd, function(err, stdout, stderr) {
 			if (err) {
 				throw err;
 			}
-			console.log(stdout);
+			//console.log(stdout);
 			var files = stdout.split("\n").map(function(row, index) {
 				// TODO: I bet there is a cooler way to do this.
 				var dateFile = {};
@@ -124,15 +124,15 @@ var Onceler = function(args) {
 			// the outputFile should be json or csv or what.
 			var outputFile = path.join(cfg.workingDir, path.sep, path.basename(file.file));
 			var cmd = "";
-			cmd += util.format(cfg.command, file.file, outputFile);
+			cmd += util.format(cfg.command, file.file, cfg.workingDir);
 
 			// Process the file.
-			console.log(cmd);
+			//console.log(cmd);
 			child = exec(cmd, function(err, stdout, stderr) {
 				if (err) {
 					throw err;
 				}
-				console.log(stdout);
+				//console.log(stdout);
 
 				// Immediately update the cfg "newerThan" field.
 				// If this process is killed somewhere in between we
@@ -174,7 +174,7 @@ var Onceler = function(args) {
 			});
 
 		} catch (err) {
-			console.error("onceler.process had a problem!  " + err);
+			util.error("onceler.process had a problem!  " + err);
 			cb.call(null);
 		}
 	};

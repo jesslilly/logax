@@ -2,14 +2,14 @@
 var util = require( "util" );
 var Logax = require( "./logaxnm" );
 var argv = require('optimist').usage(
-'Usage: $0 --parserFile file --input infile --output outfile').demand(
-[ 'parserFile', 'input', 'output' ]).describe(
+'Usage: $0 --parserFile file --input infile --outputDir outdir').demand(
+[ 'parserFile', 'input', 'outputDir' ]).describe(
 'parserFile',
 'A js file with the search strings.  See the template.  ').describe(
 'input',
 'Input text file to process.').describe(
-'output',
-'Output file name and type (must be csv or json).').argv;
+'outputDir',
+'Output json file to outdir.').argv;
 
 util.puts( "Begin logax.js at " + new Date().toISOString() );
 
