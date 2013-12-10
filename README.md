@@ -34,17 +34,19 @@ for further processing and reporting.  Then this is the tool for you.
 
 	{ jobId : 12345 }
 
+## Installation
+
+1. [Install Node](http://nodejs.org/download/)
+2. `npm install logax`
+
+Now you will have a node_modules directory with `logax.js` and `onceler.js`
+
 ## onceler.js
 `onceler.js` is a node.js command line program that processes files 'once'.  You provide
 a json file with the file name globs you want to process.  `onceler.js` keeps track of 
 which files have been processed already using dates.  `onceler.js` will search for 'new'
 files working forward in time.  Onceler is intended to be run from a cron
 or a scheduled task.
-
-## logax.js
-`logax.js` is a little guy who hacks up your log files.  (Or text files)  `logax.js` will
-accept a json file as input and use the search strings (regex strings) in the json
-to parse a file.
 
 ## Caveats
 This tool was developed for unstructured log files.  There is no problem using it
