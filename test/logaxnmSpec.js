@@ -26,7 +26,7 @@ describe('Logax createOutputFileName', function() {
 });
 
 describe('Logax parse', function() {
-	var FOOLOG_OUTPUT = {
+	var FOOLOG_OUTPUT = [ {
 		"jobId" : "12345",
 		"email" : "abc@abc.com",
 		"logVersion" : "1.0.0",
@@ -34,7 +34,7 @@ describe('Logax parse', function() {
 		"area" : 7194601,
 		"elapsedTime" : "1000",
 		"endAt" : "2013-11-26T18:50:44.000Z"
-	};
+	} ];
 	var asyncFinished = false;
 	var fileData = "";
 	var l2 = new Logax({

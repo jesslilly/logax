@@ -32,7 +32,7 @@ for further processing and reporting.  Then this is the tool for you.
 
 ### 4. You get JSON output like this:
 
-	{ jobId : 12345 }
+	[ { jobId : 12345 } ]
 
 ## Installation
 

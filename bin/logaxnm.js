@@ -24,7 +24,9 @@ var Logax = function(args) {
 	var parserFile = args.parserFile;
 	var input = args.input;
 	var outputDir = args.outputDir;
-	var retObj = {};
+	var retList = [{}];
+	var retIdx = 0;
+	var retObj = retList[retIdx];
 	// TODO: Better way to do this?
 	var searches = require("../" + parserFile).searchStrings();
 	
@@ -42,7 +44,7 @@ var Logax = function(args) {
 	/**
 	 * @method
 	 * @private
-	 * @description Populate the defaults into the retObj.
+	 * @description Populate the defaults into the retList.
 	 * @return {void}
 	 */
 	var addDefaults = function() {
@@ -128,7 +130,7 @@ var Logax = function(args) {
 				
 				// Create as tmp file in case some other process is looking for json files.
 				// Rename after the write is done.
-				fs.writeFile( outputFile + ".tmp", JSON.stringify(retObj, null, '\t'), function() {
+				fs.writeFile( outputFile + ".tmp", JSON.stringify(retList, null, '\t'), function() {
 					fs.rename(outputFile + ".tmp", outputFile, cb);
 				});
 			});
