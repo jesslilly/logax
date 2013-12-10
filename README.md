@@ -59,9 +59,9 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Move output file naming from Onceler to Logax.  (See oncelernm.js "// TODO: Move outputFile ")
 1. Process ONE OR Multiple files to an array of js objects.  (ONE repeating log, or multiple related logs)
 1. Handle gz files.
+1. Tests for command line.
 1. Get this into npm.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
