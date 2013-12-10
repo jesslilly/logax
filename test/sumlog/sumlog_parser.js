@@ -8,6 +8,10 @@ var calcArea = function(captures) {
 	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
 };
 
+exports.delimiter = function() {
+	return [ "^Begin job log at .*$" ];
+};
+
 exports.searchStrings = function() {
 	return [ {
 		searchFor : "^JobID: ([0-9]*)$",

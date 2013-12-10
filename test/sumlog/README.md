@@ -1,7 +1,7 @@
-## Job Log
+## Sum Log
 
-This represents a "Job" log, meaning a single job is output to a single log file.
+This represents a "Summary" log of multiple jobs in one file with a job delimiter line.
 
-Files in this folder and joblog2 should be read only.
+JSON output array will be length >= 1.
 
 Test output goes to the output dir.

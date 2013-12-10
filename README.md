@@ -69,6 +69,7 @@ This is roughly in priority order.
 1. Support Windows (Using *nix find command right now).
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
+1. Crazy idea. Onceler could concatenate multiple files together prior to parsing.  (Many job logs to JSON array output ;)
 1. Optimize using pipes/streams.
 1. Intelligently process truncated log files
 1. Search for strings on more than one line.  (Containing newlines)
