@@ -6,6 +6,6 @@
 	"fileGlob": "joblog*.log",
 	"command": "bin/logax.js --parserFile test/joblog/joblog_parser.js --input %s --outputDir %s",
 	"workingDir": "test/output",
-	"newerThan": "2013-11-26 14:20:01.7723095220",
+	"newerThan": "2013-12-10 16:16:09.8602550950",
 	"maxFiles": "2"
 }

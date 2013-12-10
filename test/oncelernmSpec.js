@@ -104,10 +104,10 @@ describe('Onceler findNewFiles', function() {
 
 	it('should find these new files', function() {
 		var expectedFiles = [ {
-			mtime : '2013-11-26 14:20:01.7723095220',
+			mtime : '2013-12-10 16:16:09.8562549410',
 			file : 'test/joblog/joblog1.log'
 		}, {
-			mtime : '2013-11-26 14:21:57.5167016480',
+			mtime : '2013-12-10 16:16:09.8602550950',
 			file : 'test/joblog/joblog2.log'
 		} ];
 
