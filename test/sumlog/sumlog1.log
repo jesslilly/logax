@@ -1,0 +1,19 @@
+
+=============================================
+Begin job log at Tue Nov 26 13:50:43 EST 2013
+=============================================
+This is just some random log file you might get from an application.
+job is a magical word
+timestamp: Tue Nov 26 13:50:43 EST 2013
+JobID: 12345
+email: abc@abc.com
+there are lots of things you might search for.
+Dude, we just ran this sql: SELECT * FROM TABLE WHERE 1=1;
+Here is some json we may want to extract: { "a" : 1, "b" : 2, "c" : 3 }
+a,b,c
+This thing sometimes happens: 1 2400 1 3000
+some junk
+Elapsed time: 1000ms
+=============================================
+  End job log at Tue Nov 26 13:50:44 EST 2013
+=============================================
