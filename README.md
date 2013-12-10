@@ -9,6 +9,35 @@ You want to "grep" for many different search strings within those files and outp
 a common format like json or csv.  You can subsequently insert the data into a database
 for further processing and reporting.  Then this is the tool for you.
 
+## Example
+1. Find a text file you want to mine.
+
+    =============================================
+    Begin foo log at Tue Nov 26 13:50:43 EST 2013
+    =============================================
+    This is just some random log file you might get from an application.
+    foo is a magical word
+    timestamp: Tue Nov 26 13:50:43 EST 2013
+    JobID: 12345
+ 
+2. Create a parser config file like this:
+
+    {
+		searchFor : "^JobID: ([0-9]*)$",
+		sample: "JobID: 12345",
+		outputField : "jobId"
+	}
+	
+3. Run `logax.js` like this:
+
+    bin/logax.js --parserFile my_parser.js \
+		--input foolog1.log \
+		--output foolog1.json
+
+4. You get JSON output like this:
+
+   { jobId : 12345 }
+
 ## onceler.js
 `onceler.js` is a node.js command line program that processes files 'once'.  You provide
 a json file with the file name globs you want to process.  `onceler.js` keeps track of 
@@ -31,17 +60,18 @@ may want to try a parser for that markup.  It's your call.
 
 Contributions are welcome.  Make sure changes have tests.
 
-### Future Enhancements (TODO)
+### Future Enhancements
 This is roughly in priority order.
 
 1. Move output file naming from Onceler to Logax.  (See oncelernm.js "// TODO: Move outputFile ")
+1. Process ONE OR Multiple files to an array of js objects.  (ONE repeating log, or multiple related logs)
+1. Handle gz files.
 1. Get this into npm.
-1. Process multiple files to an array of js objects.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
-1. Output various json hierarchies
+1. Optimize using pipes/streams.
 1. Intelligently process truncated log files
 1. Search for strings on more than one line.  (Containing newlines)
 1. Allow search strings to be in xpath for true XML parsing?
