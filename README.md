@@ -12,6 +12,7 @@ for further processing and reporting.  Then this is the tool for you.
 ## Example
 ### 1. Find a text file you want to mine.
 
+    $ cat joblog1.log
 	Begin job log at Tue Nov 26 13:50:43 EST 2013
 	This is just some random log file you might get from an application.
 	JobID: 12345
@@ -20,15 +21,15 @@ for further processing and reporting.  Then this is the tool for you.
 
 	{
 		searchFor : "^JobID: ([0-9]*)$",
-		sample: "JobID: 12345",
 		outputField : "jobId"
 	}
+	// Note that the number is "captured" using parentheses.
 	
 ### 3. Run `logax.js` like this:
 
 	bin/logax.js --parserFile my_parser.js \
 		--input joblog1.log \
-		--outputDir /var/mydata
+		--outputDir /some/dir
 
 ### 4. You get JSON output like this:
 
