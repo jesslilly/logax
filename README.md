@@ -28,7 +28,7 @@ for further processing and reporting.  Then this is the tool for you.
 
 	bin/logax.js --parserFile my_parser.js \
 		--input joblog1.log \
-		--output joblog1.json
+		--outputDir /var/mydata
 
 ### 4. You get JSON output like this:
 
