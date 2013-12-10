@@ -62,12 +62,12 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Process ONE OR Multiple files to an array of js objects.  (ONE repeating log, or multiple related logs)
 1. Handle gz files.
-1. Tests for command line.
+1. Tests for onceler.js command line.
 1. Get this into npm.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
+1. Support calculated fields (Based on the values of already captured fields.  Post row processing step.)
 1. Handle duplicate log messages such that you can specify which one you want.  (nth duplicate)
 1. Output CSV or JSON.  Only json is supported right now.
 1. Crazy idea. Onceler could concatenate multiple files together prior to parsing.  (Many job logs to JSON array output ;)

@@ -8,7 +8,7 @@ var calcArea = function(captures) {
 	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
 };
 
-exports.delimiter = function() {
+exports.delimiters = function() {
 	return [ "^Begin job log at .*$" ];
 };
 

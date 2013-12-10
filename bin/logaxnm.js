@@ -29,6 +29,7 @@ var Logax = function(args) {
 	var retObj = retList[retIdx];
 	// TODO: Better way to do this?
 	var searches = require("../" + parserFile).searchStrings();
+	var delimiters = require("../" + parserFile).delimiters();
 	
 	/**
 	 * @method
@@ -58,6 +59,17 @@ var Logax = function(args) {
 	/**
 	 * @method
 	 * @private
+	 * @description Put a new object on the end of the retList array.
+	 * @return {void}
+	 */
+	var append = function() {
+		retList.push({});
+		retObj = retList[++retIdx];
+	};
+	
+	/**
+	 * @method
+	 * @private
 	 * @description Parse the input file based on given parserFile. write output
 	 *              file.
 	 * @param {string}
@@ -68,6 +80,16 @@ var Logax = function(args) {
 		// Process one line at a time.
 		// (What is more efficient, parsing each line or running many
 		// greps?)
+		
+		// First check if line is a delimiter.
+		var delimMatch = delimiters.filter(function(delim, idx) {
+			return (new RegExp(delim).exec(line));
+		});
+		if (delimMatch.length > 0) {
+			append();
+		}
+		
+		// Then check if the line matches any of our search regexs.
 		// Use a c-style for loop so we can break and continue.
 		for ( var idx = 0; idx < searches.length; idx += 1) {
 			var search = searches[idx];
@@ -128,7 +150,8 @@ var Logax = function(args) {
 				// Write output file.
 				var outputFile = self.createOutputFileName();
 				
-				// Create as tmp file in case some other process is looking for json files.
+				// Create as tmp file in case some other process is looking for
+				// json files.
 				// Rename after the write is done.
 				fs.writeFile( outputFile + ".tmp", JSON.stringify(retList, null, '\t'), function() {
 					fs.rename(outputFile + ".tmp", outputFile, cb);
