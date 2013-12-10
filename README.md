@@ -10,13 +10,13 @@ a common format like json or csv.  You can subsequently insert the data into a d
 for further processing and reporting.  Then this is the tool for you.
 
 ## Example
-1. Find a text file you want to mine.
+### 1. Find a text file you want to mine.
 
 	Begin foo log at Tue Nov 26 13:50:43 EST 2013
 	This is just some random log file you might get from an application.
 	JobID: 12345
  
-2. Create a parser config file like this:
+### 2. Create a parser config file like this:
 
 	{
 		searchFor : "^JobID: ([0-9]*)$",
@@ -24,13 +24,13 @@ for further processing and reporting.  Then this is the tool for you.
 		outputField : "jobId"
 	}
 	
-3. Run `logax.js` like this:
+### 3. Run `logax.js` like this:
 
 	bin/logax.js --parserFile my_parser.js \
 		--input foolog1.log \
 		--output foolog1.json
 
-4. You get JSON output like this:
+### 4. You get JSON output like this:
 
 	{ jobId : 12345 }
 
