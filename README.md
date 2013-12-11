@@ -19,6 +19,7 @@ for further processing and reporting.  Then this is the tool for you.
  
 ### 2. Create a parser config file like this:
 
+	$ cat my_parser.js
 	{
 		searchFor : "^JobID: ([0-9]*)$",
 		outputField : "jobId"
@@ -27,12 +28,13 @@ for further processing and reporting.  Then this is the tool for you.
 	
 ### 3. Run `logax.js` like this:
 
-	bin/logax.js --parserFile my_parser.js \
+	$ bin/logax.js --parserFile my_parser.js \
 		--input joblog1.log \
 		--outputDir /some/dir
 
 ### 4. You get JSON output like this:
 
+	$ cat /some/dir/joblog1.json
 	[ { jobId : 12345 } ]
 
 ## Installation
