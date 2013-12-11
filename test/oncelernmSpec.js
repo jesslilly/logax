@@ -30,7 +30,7 @@ describe('Onceler loadCfgFile', function() {
 	var asyncFinished = false;
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/joblog_onceler.json"
+		cfgFile : "test/output/joblog_onceler1.json"
 	});
 
 	o1.loadCfgFile(function() {
@@ -55,7 +55,7 @@ describe('Onceler saveCfgFile', function() {
 	var asyncFinished = false;
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/joblog_onceler.json"
+		cfgFile : "test/output/joblog_onceler4.json"
 	});
 
 	o1.loadCfgFile(function() {
@@ -82,7 +82,7 @@ describe('Onceler findNewFiles', function() {
 	var dateFiles = [];
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/joblog_onceler.json"
+		cfgFile : "test/output/joblog_onceler5.json"
 	});
 
 	var asyncFinished = false;
@@ -127,7 +127,7 @@ describe('Onceler process (first batch)', function() {
 	var asyncFinished = false;
 	var exists = false;
 	var o1 = new Onceler({
-		cfgFile : "test/output/joblog_onceler.json"
+		cfgFile : "test/output/joblog_onceler6.json"
 	});
 
 	o1.process(function() {
@@ -176,26 +176,26 @@ describe('Onceler process (second batch)', function() {
 });
 
 //Test the command line application.
-//describe('onceler.js command line', function() {
-//	var asyncFinished = false;
-//	var cmd = "";
-//	cmd += "bin/onceler.js --cfgFile test/output/onceler3.json ";
-//
-//	child = exec(cmd, function(error, stdout, stderr) {
-//		if (error) {
-//			console.info(error);
-//		}
-//		asyncFinished = true;
-//	});
-//
-//	it('should process the configured command (in onceler3.json)', function() {
-//		waitsFor(function() {
-//			return asyncFinished;
-//		}, "onceler.js never completed.  Check for missing callback.", 10000);
-//
-//		runs(function() {
-//			var exists = fs.existsSync('test/output/cmd-line-test.txt');
-//			expect(exists).toEqual(true);
-//		});
-//	});
-//});
+describe('onceler.js command line', function() {
+	var asyncFinished = false;
+	var cmd = "";
+	cmd += "bin/onceler.js --cfgFile test/output/joblog_onceler3.json ";
+
+	child = exec(cmd, function(error, stdout, stderr) {
+		if (error) {
+			console.info(error);
+		}
+		asyncFinished = true;
+	});
+
+	it('should process the configured command (in onceler3.json)', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "onceler.js never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			var exists = fs.existsSync('test/output/cmd-line-test.txt');
+			expect(exists).toEqual(true);
+		});
+	});
+});

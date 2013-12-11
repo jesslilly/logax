@@ -63,7 +63,6 @@ Contributions are welcome.  Make sure changes have tests.
 This is roughly in priority order.
 
 1. Handle gz files.
-1. Tests for onceler.js command line.
 1. Get this into npm.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
