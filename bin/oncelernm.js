@@ -73,15 +73,20 @@ var Onceler = function(args) {
 		// TODO: Ask the question on SO.
 
 		// Find new text files that have appeared since last time.
+		var dateFile = cfg.workingDir + path.sep + path.basename(cfgFile) + ".tmp";
 		var findCmd = "";
+		findCmd += "touch -d '" + cfg.newerThan + "' " + dateFile;
+		findCmd += "; ";
 		findCmd += "find " + cfg.searchDirs.join(" ") + " ";
-		findCmd += "-newermt '" + cfg.newerThan + "' ";
+		findCmd += "-newer '" + dateFile + "' ";
 		findCmd += "-name '" + cfg.fileGlob + "' ";
 		findCmd += "-type f ";
 		// printf: %T = modified time, + = YYYY-MM-DD+HH:mm:SS.ms format, %p =
 		// file with path, \\n = newline
 		findCmd += "-printf '%T+ %p\\n' | sort ";
 		findCmd += "| head -" + cfg.maxFiles + " ";
+		findCmd += "; ";
+		findCmd += "rm " + dateFile;
 		//console.log(findCmd);
 		child = exec(findCmd, function(err, stdout, stderr) {
 			if (err) {
