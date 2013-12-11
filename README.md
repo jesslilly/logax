@@ -20,9 +20,14 @@ for further processing and reporting.  Then this is the tool for you.
 ### 2. Create a parser config file like this:
 
 	$ cat my_parser.js
+	...
 	{
 		searchFor : "^JobID: ([0-9]*)$",
 		outputField : "jobId"
+	},
+	{
+		searchFor : "^email: (.*)$",
+		outputField : "email"
 	}
 	// Note that the number is "captured" using parentheses.
 	
@@ -35,7 +40,7 @@ for further processing and reporting.  Then this is the tool for you.
 ### 4. You get JSON output like this:
 
 	$ cat /some/dir/joblog1.json
-	[ { jobId : 12345 } ]
+	[ { jobId : 12345, email : aaa@aaa.com } ]
 
 ## Installation
 
