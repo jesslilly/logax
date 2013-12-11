@@ -16,6 +16,7 @@ for further processing and reporting.  Then this is the tool for you.
 	Begin job log at Tue Nov 26 13:50:43 EST 2013
 	This is just some random log file you might get from an application.
 	JobID: 12345
+	email: aaa@aaa.com
  
 ### 2. Create a parser config file like this:
 
