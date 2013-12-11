@@ -55,7 +55,9 @@ for further processing and reporting.  Then this is the tool for you.
 a json config file with the file name globs you want to process.  `onceler.js` keeps track of 
 which files have been processed already using dates.  `onceler.js` will search for 'new'
 files working forward in time.  Onceler is intended to be run from a cron
-or a scheduled task.
+or a scheduled task.  It can handle gz files!
+
+TODO: Add example config and run of onceler.js
 
 ## Caveats
 This tool was developed for unstructured log files.  There is no problem using it
@@ -70,7 +72,6 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Handle gz files.
 1. Get this into npm.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
