@@ -73,9 +73,8 @@ describe('Logax parse', function() {
 // Test the command line application and sum logs at the same time.
 describe('logax.js command line', function() {
 	var SUMLOG_OUTPUT = [ {
-		logVersion : '1.0.0'
-	}, {
 		startAt : '2013-11-26T18:50:43.000Z',
+		logVersion : '1.0.0',
 		jobId : '12345',
 		email : 'abc@abc.com',
 		area : 7194601,
@@ -126,3 +125,5 @@ describe('logax.js command line', function() {
 	});
 
 });
+
+// TODO: Add test for text file that results in zero matches.  Should output [] JSON.

@@ -37,6 +37,11 @@ exports.searchStrings = function() {
 		converter: calcArea,
 		outputField : "area"
 	}, {
+		searchFor : "^This other thing can happen: ([0-9]*) ([0-9]*) ([0-9]*) ([0-9]*)",
+		sample : "This other thing can happen: 1 2400 1 3000",
+		converter: calcArea,
+		outputField : "area"
+	}, {
 		searchFor : "^Elapsed time: ([0-9]*)ms",
 		sample : "Elapsed time: 1000ms",
 		outputField : "elapsedTime"

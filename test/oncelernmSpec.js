@@ -175,6 +175,31 @@ describe('Onceler process (second batch)', function() {
 	});
 });
 
+describe('Onceler process (gzip batch)', function() {
+	var asyncFinished = false;
+	var exists = false;
+	var o1 = new Onceler({
+		cfgFile : "test/output/jobloggz_onceler1.json"
+	});
+
+	o1.process(function() {
+		fs.exists('test/output/joblog4.json', function(exists1) {
+			exists = exists1;
+			asyncFinished = true;
+		});
+	});
+
+	it('should create 1 new output file', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "Onceler.process never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			expect(exists).toEqual(true);
+		});
+	});
+});
+
 //Test the command line application.
 describe('onceler.js command line', function() {
 	var asyncFinished = false;

@@ -24,9 +24,10 @@ var Logax = function(args) {
 	var parserFile = args.parserFile;
 	var input = args.input;
 	var outputDir = args.outputDir;
-	var retList = [{}];
-	var retIdx = 0;
-	var retObj = retList[retIdx];
+	// reList should start out with nothing in case we find nothing in the text file.
+	var retList = [];
+	var retIdx = -1;
+	var retObj = null;
 	// TODO: Better way to do this?
 	var searches = require("../" + parserFile).searchStrings();
 	var delimiters = require("../" + parserFile).delimiters();
@@ -39,7 +40,7 @@ var Logax = function(args) {
 	 * @return {string} - output file name.
 	 */
 	this.createOutputFileName = function() {
-		return outFileName = outputDir +  path.sep + path.basename(input, path.extname(input)) + ".json";
+		return outputDir +  path.sep + path.basename(input, path.extname(input)) + ".json";
 	};
 	
 	/**
@@ -65,6 +66,9 @@ var Logax = function(args) {
 	var append = function() {
 		retList.push({});
 		retObj = retList[++retIdx];
+
+		// Fill in the defaults
+		addDefaults();
 	};
 	
 	/**
@@ -85,6 +89,7 @@ var Logax = function(args) {
 		var delimMatch = delimiters.filter(function(delim, idx) {
 			return (new RegExp(delim).exec(line));
 		});
+		// Append if we match a delimiter.
 		if (delimMatch.length > 0) {
 			append();
 		}
@@ -113,10 +118,15 @@ var Logax = function(args) {
 				// Default behavior is to grab $1.
 				value = matchedText[1];
 			}
+			
+			// It's possible the file does not have a leading delimiter.
+			if (retObj === null) {
+				append();
+			}
 
 			retObj[search.outputField] = value;
-
 		}
+		return;
 	};
 
 	/**
@@ -131,9 +141,6 @@ var Logax = function(args) {
 	this.parse = function(cb) {
 
 		try {
-
-			// Fill in the defaults
-			addDefaults();
 
 			// Open input file for each line.
 			require('readline').createInterface({
