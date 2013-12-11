@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # TODO: Implement for Windows.
-rm test/output/*.json
-./node_modules/jasmine-node/bin/jasmine-node test/logaxnmSpec.js
-cp test/joblog/onceler.json test/output
-cp test/joblog/onceler2.json test/output
-./node_modules/jasmine-node/bin/jasmine-node test/oncelernmSpec.js
 
-if [[ 1 == 0 ]]
-then
-	bin/logax.js --parserFile test/joblog/joblog_parser.js \
-		--input test/joblog/joblog1.log \
-		--output test/output/joblog1.json
-	bin/logax.js --parserFile test/joblog/joblog_parser.js \
-		--input test/joblog/joblog2.log \
-		--output test/output/joblog2.json
-fi
+# First out the test output directory
+rm test/output/*.*
+
+# ------------------
+# Run jasmine tests.
+# ------------------
+# Note that you can call test.sh --verbose and the arg will pass through to jasmine.
+set -x
+./node_modules/jasmine-node/bin/jasmine-node $@ test/logaxnmSpec.js
+
+# These are copied to output since they get modified and I don't want to commit the modified version.
+cp test/config/*onceler*.json test/output
+# TODO: Because of these copy command dependencies, the tests will fail if you run the below command manually.  Hmmm....
+./node_modules/jasmine-node/bin/jasmine-node $@ test/oncelernmSpec.js

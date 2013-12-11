@@ -120,6 +120,11 @@ var Onceler = function(args) {
 	 * @return {void}
 	 */
 	this.processFiles = function(files, cb) {
+		
+		if (files.length === 0) {
+			util.puts("0 Files to process.");
+			cb.call(null);
+		}
 
 		files.forEach(function(file, idx) {
 

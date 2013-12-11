@@ -1,4 +1,5 @@
 var fs = require('fs');
+var exec = require('child_process').exec, child;
 var Onceler = require('../bin/oncelernm.js');
 
 describe('Onceler constructor', function() {
@@ -29,7 +30,7 @@ describe('Onceler loadCfgFile', function() {
 	var asyncFinished = false;
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/onceler.json"
+		cfgFile : "test/output/joblog_onceler.json"
 	});
 
 	o1.loadCfgFile(function() {
@@ -54,7 +55,7 @@ describe('Onceler saveCfgFile', function() {
 	var asyncFinished = false;
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/onceler.json"
+		cfgFile : "test/output/joblog_onceler.json"
 	});
 
 	o1.loadCfgFile(function() {
@@ -81,7 +82,7 @@ describe('Onceler findNewFiles', function() {
 	var dateFiles = [];
 
 	var o1 = new Onceler({
-		cfgFile : "test/output/onceler.json"
+		cfgFile : "test/output/joblog_onceler.json"
 	});
 
 	var asyncFinished = false;
@@ -105,10 +106,10 @@ describe('Onceler findNewFiles', function() {
 	it('should find these new files', function() {
 		var expectedFiles = [ {
 			mtime : '2013-12-10 16:16:09.8562549410',
-			file : 'test/joblog/joblog1.log'
+			file : 'test/data/joblog/joblog1.log'
 		}, {
 			mtime : '2013-12-10 16:16:09.8602550950',
-			file : 'test/joblog/joblog2.log'
+			file : 'test/data/joblog/joblog2.log'
 		} ];
 
 		waitsFor(function() {
@@ -126,7 +127,7 @@ describe('Onceler process (first batch)', function() {
 	var asyncFinished = false;
 	var exists = false;
 	var o1 = new Onceler({
-		cfgFile : "test/output/onceler.json"
+		cfgFile : "test/output/joblog_onceler.json"
 	});
 
 	o1.process(function() {
@@ -153,7 +154,7 @@ describe('Onceler process (second batch)', function() {
 	var asyncFinished = false;
 	var exists = false;
 	var o1 = new Onceler({
-		cfgFile : "test/output/onceler2.json"
+		cfgFile : "test/output/joblog_onceler2.json"
 	});
 
 	o1.process(function() {
@@ -173,3 +174,28 @@ describe('Onceler process (second batch)', function() {
 		});
 	});
 });
+
+//Test the command line application.
+//describe('onceler.js command line', function() {
+//	var asyncFinished = false;
+//	var cmd = "";
+//	cmd += "bin/onceler.js --cfgFile test/output/onceler3.json ";
+//
+//	child = exec(cmd, function(error, stdout, stderr) {
+//		if (error) {
+//			console.info(error);
+//		}
+//		asyncFinished = true;
+//	});
+//
+//	it('should process the configured command (in onceler3.json)', function() {
+//		waitsFor(function() {
+//			return asyncFinished;
+//		}, "onceler.js never completed.  Check for missing callback.", 10000);
+//
+//		runs(function() {
+//			var exists = fs.existsSync('test/output/cmd-line-test.txt');
+//			expect(exists).toEqual(true);
+//		});
+//	});
+//});

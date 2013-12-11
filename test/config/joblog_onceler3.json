@@ -1,0 +1,10 @@
+{
+	"searchDirs": [
+		"test/data/joblog2"
+	],
+	"fileGlob": "joblog*.log",
+	"command": "cat %s > %s/cmd-line-test.txt",
+	"workingDir": "test/output",
+	"newerThan": "2013-01-01 16:26:34.6783374290",
+	"maxFiles": "2"
+}

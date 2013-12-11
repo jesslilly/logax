@@ -1,10 +1,10 @@
 {
 	"searchDirs": [
-		"test/sumlog",
-		"test/sumlog2"
+		"test/data/sumlog",
+		"test/data/sumlog2"
 	],
 	"fileGlob": "sumlog*.log",
-	"command": "bin/logax.js --parserFile test/sumlog/sumlog_parser.js --input %s --outputDir %s",
+	"command": "bin/logax.js --parserFile test/config/sumlog_parser.js --input %s --outputDir %s",
 	"workingDir": "test/output",
 	"newerThan": "2013-11-02 11:28:47.7168471960",
 	"maxFiles": "2"

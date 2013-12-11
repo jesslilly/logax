@@ -18,8 +18,8 @@ describe('Logax createOutputFileName', function() {
 
 	it('should create the correct output file name.', function() {
 		var l2 = new Logax({
-			parserFile : 'test/joblog/joblog_parser.js',
-			input : 'test/joblog/joblog1.log',
+			parserFile : 'test/config/joblog_parser.js',
+			input : 'test/data/joblog/joblog1.log',
 			outputDir : 'test/output'
 		});
 		expect(l2.createOutputFileName()).toEqual('test/output/joblog1.json');
@@ -39,8 +39,8 @@ describe('Logax parse', function() {
 	var asyncFinished = false;
 	var fileData = "";
 	var l2 = new Logax({
-		parserFile : 'test/joblog/joblog_parser.js',
-		input : 'test/joblog/joblog1.log',
+		parserFile : 'test/config/joblog_parser.js',
+		input : 'test/data/joblog/joblog1.log',
 		outputDir : 'test/output'
 	});
 	l2.parse(function() {
@@ -92,8 +92,8 @@ describe('logax.js command line', function() {
 	var asyncFinished = false;
 	var fileData = "";
 	var cmd = "";
-	cmd += "bin/logax.js --parserFile test/sumlog/sumlog_parser.js ";
-	cmd += "--input test/sumlog/sumlog1.log ";
+	cmd += "bin/logax.js --parserFile test/config/sumlog_parser.js ";
+	cmd += "--input test/data/sumlog/sumlog1.log ";
 	cmd += "--outputDir test/output";
 
 	child = exec(cmd, function(error, stdout, stderr) {
