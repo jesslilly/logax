@@ -30,7 +30,7 @@ for further processing and reporting.  Then this is the tool for you.
 		searchFor : "^email: (.*)$",
 		outputField : "email"
 	}
-	// Note that the output is "captured" using parentheses.
+	// Note that the output is "captured" using regex parentheses.
 	
 ### 3. Run `logax.js` like this:
 
@@ -52,7 +52,7 @@ for further processing and reporting.  Then this is the tool for you.
 
 ## onceler.js
 `onceler.js` is a node.js command line program that processes files 'once'.  You provide
-a json file with the file name globs you want to process.  `onceler.js` keeps track of 
+a json config file with the file name globs you want to process.  `onceler.js` keeps track of 
 which files have been processed already using dates.  `onceler.js` will search for 'new'
 files working forward in time.  Onceler is intended to be run from a cron
 or a scheduled task.
