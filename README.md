@@ -30,7 +30,7 @@ for further processing and reporting.  Then this is the tool for you.
 		searchFor : "^email: (.*)$",
 		outputField : "email"
 	}
-	// Note that the number is "captured" using parentheses.
+	// Note that the output is "captured" using parentheses.
 	
 ### 3. Run `logax.js` like this:
 
@@ -47,8 +47,8 @@ for further processing and reporting.  Then this is the tool for you.
 
 1. [Install Node](http://nodejs.org/download/)
 2. `npm install logax`
-
-Now you will have a node_modules directory with `logax.js` and `onceler.js`
+3. Now you will have a node_modules directory with `logax.js` and `onceler.js`
+4. Edit your .bashrc or .profile: `export PATH=$PATH:/some/dir/node_modules`
 
 ## onceler.js
 `onceler.js` is a node.js command line program that processes files 'once'.  You provide
