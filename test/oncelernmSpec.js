@@ -198,9 +198,25 @@ describe('Onceler process (gzip batch)', function() {
 			expect(exists).toEqual(true);
 		});
 	});
+
+	it('should properly unzip the input file', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "Onceler.process never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			var data1 = fs.readFileSync("test/data/jobloggz/joblog4.log", {
+				encoding : "utf8"
+			});
+			var data2 = fs.readFileSync("test/output/joblog4.log", {
+				encoding : "utf8"
+			});
+			expect(data1).toEqual(data2);
+		});
+	});
 });
 
-//Test the command line application.
+// Test the command line application.
 describe('onceler.js command line', function() {
 	var asyncFinished = false;
 	var cmd = "";

@@ -1,6 +1,7 @@
 var fs = require('fs');
 var util = require('util');
 var path = require('path');
+var zlib = require('zlib');
 var common = require('../bin/common');
 var exec = require('child_process').exec, child;
 
@@ -73,12 +74,12 @@ var Onceler = function(args) {
 		// TODO: Ask the question on SO.
 
 		// Find new text files that have appeared since last time.
-		var dateFile = cfg.workingDir + path.sep + path.basename(cfgFile) + ".tmp";
+		var touchFile = cfg.workingDir + path.sep + path.basename(cfgFile) + ".tmp";
 		var findCmd = "";
-		findCmd += "touch -d '" + cfg.newerThan + "' " + dateFile;
+		findCmd += "touch -d '" + cfg.newerThan + "' " + touchFile;
 		findCmd += "; ";
 		findCmd += "find " + cfg.searchDirs.join(" ") + " ";
-		findCmd += "-newer '" + dateFile + "' ";
+		findCmd += "-newer '" + touchFile + "' ";
 		findCmd += "-name '" + cfg.fileGlob + "' ";
 		findCmd += "-type f ";
 		// printf: %T = modified time, + = YYYY-MM-DD+HH:mm:SS.ms format, %p =
@@ -86,24 +87,24 @@ var Onceler = function(args) {
 		findCmd += "-printf '%T+ %p\\n' | sort ";
 		findCmd += "| head -" + cfg.maxFiles + " ";
 		findCmd += "; ";
-		findCmd += "rm " + dateFile;
-		//console.log(findCmd);
+		findCmd += "rm " + touchFile;
+		// console.log(findCmd);
 		child = exec(findCmd, function(err, stdout, stderr) {
 			if (err) {
 				throw err;
 			}
-			//console.log(stdout);
-			var files = stdout.split("\n").map(function(row, index) {
+			// console.log(stdout);
+			var mfiles = stdout.split("\n").map(function(row, index) {
 				// TODO: I bet there is a cooler way to do this.
-				var dateFile = {};
-				dateFile.mtime = row.split(" ")[0].replace("+", " ");
-				dateFile.file = row.split(" ")[1];
-				return dateFile;
+				var mfile = {};
+				mfile.mtime = row.split(" ")[0].replace("+", " ");
+				mfile.file = row.split(" ")[1];
+				return mfile;
 			});
 			// Remove the last/bad element from the array. Split "\n" gave
 			// us a bad trailing element.
-			files.pop();
-			cb.call(null, files);
+			mfiles.pop();
+			cb.call(null, mfiles);
 		});
 	};
 
@@ -114,46 +115,99 @@ var Onceler = function(args) {
 	 *              programming of node, These commands happen in "near"
 	 *              parallel. Sweeeeet.
 	 * @param {Array}
-	 *            files - list of mtime,file objects.
+	 *            mfiles - list of mtime,file objects.
 	 * @param {function}
 	 *            cb - callback when it's done (async).
 	 * @return {void}
 	 */
-	this.processFiles = function(files, cb) {
-		
-		if (files.length === 0) {
+	this.processFiles = function(mfiles, cb) {
+
+		if (mfiles.length === 0) {
 			util.puts("0 Files to process.");
 			cb.call(null);
 		}
 
-		files.forEach(function(file, idx) {
+		mfiles.forEach(function(mfile, idx) {
+
+			self.processFile(mfile, function() {
+				// On the last file, call back!
+				if (idx === mfiles.length - 1) {
+					cb.call(null);
+				}
+			});
+		});
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description If file is .gz, gunzip and cp to output dir.
+	 * @param {string}
+	 *            file1 - file path
+	 * @param {function}
+	 *            cb - callback when it's done (async).
+	 * @return {void}
+	 */
+	var gunzip = function(file1, cb) {
+		
+		if (path.extname(file1) !== ".gz") {
+			cb.call(null, file1);
+			return;
+		}
+
+		var file2 = cfg.workingDir + path.sep + path.basename(file1, ".gz");
+		console.info("unzip from");
+		console.info(file1);
+		console.info(file2);
+
+		var inp = fs.createReadStream(file1);
+		var out = fs.createWriteStream(file2);
+
+		var reader = inp.pipe(zlib.createGunzip());
+		reader.pipe(out, {
+			end : false
+		});
+		reader.on('end', function() {
+			console.info("Finished unzipping file");
+			cb.call(null, file2);
+		});
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description Process a single mtime,file object.
+	 * @param {Object}
+	 *            mfile - mtime,file object.
+	 * @param {function}
+	 *            cb - callback when it's done (async).
+	 * @return {void}
+	 */
+	this.processFile = function(mfile, cb) {
+		
+		var file2proc = "";
+
+		// Unzip and move if necessary.
+		gunzip(mfile.file, function(file2proc) {
 
 			// Build the command.
-			// TODO: Move outputFile from onceler to logax since onceler has no
-			// idea if
-			// the outputFile should be json or csv or what.
-			var outputFile = path.join(cfg.workingDir, path.sep, path.basename(file.file));
+			var outputFile = path.join(cfg.workingDir, path.sep, path.basename(file2proc));
 			var cmd = "";
-			cmd += util.format(cfg.command, file.file, cfg.workingDir);
+			cmd += util.format(cfg.command, file2proc, cfg.workingDir);
 
 			// Process the file.
-			//console.log(cmd);
+			// console.log(cmd);
 			child = exec(cmd, function(err, stdout, stderr) {
 				if (err) {
 					throw err;
 				}
-				//console.log(stdout);
+				// console.log(stdout);
 
 				// Immediately update the cfg "newerThan" field.
 				// If this process is killed somewhere in between we
 				// reprocess only 1 file.
-				cfg.newerThan = file.mtime;
-				self.saveCfgFile(function() {
-					// On the last file, call back!
-					if (idx == files.length - 1) {
-						cb.call(null);
-					}
-				});
+				cfg.newerThan = mfile.mtime;
+				self.saveCfgFile(cb);
 			});
 		});
 	};

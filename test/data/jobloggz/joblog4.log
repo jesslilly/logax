@@ -1,0 +1,21 @@
+ 
+=============================================
+Begin job log at Tue Dec 02 11:27:43 EST 2013
+=============================================
+Foo log version: 2.0.2
+This is just some random log file you might get from an application.
+job is a magical word
+timestamp: Tue Dec 02 11:27:43 EST 2013
+JobID: 12347
+email: rad@abc.com
+there are lots of things you might search for.
+This can happen: A 1300 B 2000 Linux 9001
+Dude, we just ran this sql: SELECT * FROM TABLE WHERE 1=1;
+Here is some json we may want to extract: { "a" : 3, "b" : 3, "c" : 3 }
+a,b,c
+This other thing can happen: 4 2700 4 5000
+some junk
+Elapsed time: 1002ms
+=============================================
+  End job log at Tue Dec 02 11:27:44 EST 2013
+=============================================
