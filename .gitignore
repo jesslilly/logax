@@ -1,3 +1,2 @@
 /node_modules
-/test/output/*.json
-/test/output/*.txt
+/test/output/*.*
