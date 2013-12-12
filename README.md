@@ -100,6 +100,7 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
+1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
