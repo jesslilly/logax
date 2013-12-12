@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jesslilly/logax"
+    "url": "git://github.com/jesslilly/logax"
   },
   "keywords": [
     "Node.js",
@@ -24,8 +24,8 @@
   },
   "gitHead": "a41390e16f92a5987b0b413a2e96edaa870d6de8",
   "bin": {
-    "logax": "logax.js",
-    "onceler": "onceler.js"
+    "logax": "bin/logax.js",
+    "onceler": "bin/onceler.js"
   },
   "directories": {
     "test": "test"
