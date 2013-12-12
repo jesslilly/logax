@@ -64,8 +64,7 @@ $ cat /some/dir/joblog1.json
 
 1. [Install Node](http://nodejs.org/download/)
 2. `npm install logax`
-3. Now you will have a node_modules directory with `logax` and `onceler`
-4. Edit your .bashrc or .profile: `export PATH=$PATH:/some/dir/node_modules`
+3. `npm` will put `logax` and `onceler` in the PATH for you!
 
 ## onceler
 `onceler` is a node.js command line program that processes files 'once'.  You provide
