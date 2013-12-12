@@ -12,36 +12,53 @@ for further processing and reporting.  Then this is the tool for you.
 ## Example
 ### 1. Find a text file you want to mine.
 
-    $ cat joblog1.log
-	Begin job log at Tue Nov 26 13:50:43 EST 2013
-	This is just some random log file you might get from an application.
-	JobID: 12345
-	email: aaa@aaa.com
+```bash
+$ cat joblog1.log
+```
+
+```
+Begin job log at Tue Nov 26 13:50:43 EST 2013
+This is just some random log file you might get from an application.
+JobID: 12345
+email: aaa@aaa.com
+```
  
 ### 2. Create a parser config file like this:
 
-	$ cat my_parser.js
-	...
-	{
-		searchFor : "^JobID: ([0-9]*)$",
-		outputField : "jobId"
-	},
-	{
-		searchFor : "^email: (.*)$",
-		outputField : "email"
-	}
-	// Note that the output is "captured" using regex parentheses.
-	
+```bash
+$ cat my_parser.js
+```
+
+```js
+...
+{
+	"searchFor" : "^JobID: ([0-9]*)$",
+	"outputField" : "jobId"
+},
+{
+	"searchFor" : "^email: (.*)$",
+	"outputField" : "email"
+}
+// Note that the output is "captured" using regex parentheses.
+```
+
 ### 3. Run `logax.js` like this:
 
-	$ bin/logax.js --parserFile my_parser.js \
-		--input joblog1.log \
-		--outputDir /some/dir
+```bash
+$ bin/logax.js --parserFile my_parser.js \
+	--input joblog1.log \
+	--outputDir /some/dir
+```
 
 ### 4. You get JSON output like this:
 
-	$ cat /some/dir/joblog1.json
-	[ { jobId : 12345, email : aaa@aaa.com } ]
+```bash
+$ cat /some/dir/joblog1.json
+```
+
+```js
+[ { "jobId" : 12345, "email" : "aaa@aaa.com" } ]
+```
 
 ## Installation
 
