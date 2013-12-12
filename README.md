@@ -76,6 +76,18 @@ or a scheduled task.  It can handle gz files!
 
 TODO: Add example config and run of onceler
 
+## Functionality
+
+* Search for hundreds of regex strings.
+* Supply defaults when there is no match.
+* Using onceler and logax together, you can search many files in parallel.
+* Configure your own log parser with onceler or a logax wrapper that also calls a http POST.
+* Supports *.gz files.
+* Can parse a single job log or multiple jobs in one log (with a delimiter).
+* JSON array of objets output
+* Test coverage
+* Available from npm: https://npmjs.org/package/logax
+
 ## Caveats
 This tool was developed for unstructured log files.  There is no problem using it
 for any kind of text file regex parsing, but other tools may do a better job.  For
@@ -89,7 +101,7 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Get this into npm.
+1. Have a template or some way of generating a oncler or logax config file.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
 1. Support calculated fields (Based on the values of already captured fields.  Post row processing step.)
