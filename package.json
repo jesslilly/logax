@@ -6,17 +6,29 @@
   "scripts": {
     "test": "test/test.sh"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jesslilly/logax"
+  },
   "keywords": [
     "Node.js",
     "Eclipse",
     "Nodeclipse"
   ],
-  "author": "",
-  "license": "None yet",
+  "author": "jesslilly",
+  "license": "BSD",
   "readmeFilename": "README.md",
   "dependencies": {
-	    "jasmine-node": "1.10.x",
-	    "optimist": "0.6.x"
-	  }
+    "jasmine-node": "1.10.x",
+    "optimist": "0.6.x"
+  },
+  "gitHead": "a41390e16f92a5987b0b413a2e96edaa870d6de8",
+  "bin": {
+    "logax": "logax.js",
+    "onceler": "onceler.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }
