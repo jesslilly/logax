@@ -6,7 +6,7 @@
 Log data mining.  Say you have a bunch of web/app log files or html files or any kind of 
 text file for that matter laying around.
 You want to "grep" for many different search strings within those files and output to 
-a common format like json or csv.  You can subsequently insert the data into a database
+json.  You can subsequently insert the data into a database
 for further processing and reporting.  Then this is the tool for you.
 
 ## Example
