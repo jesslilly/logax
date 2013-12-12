@@ -1,4 +1,4 @@
-`logax.js` and `onceler.js`: parse text files with regex strings and output as json.
+`logax` and `onceler`: parse text files with regex strings and output as json.
 
 # User Documentation
 
@@ -42,10 +42,10 @@ $ cat my_parser.js
 // Note that the output is "captured" using regex parentheses.
 ```
 
-### 3. Run `logax.js` like this:
+### 3. Run `logax` like this:
 
 ```bash
-$ bin/logax.js --parserFile my_parser.js \
+$ logax --parserFile my_parser.js \
 	--input joblog1.log \
 	--outputDir /some/dir
 ```
@@ -64,17 +64,17 @@ $ cat /some/dir/joblog1.json
 
 1. [Install Node](http://nodejs.org/download/)
 2. `npm install logax`
-3. Now you will have a node_modules directory with `logax.js` and `onceler.js`
+3. Now you will have a node_modules directory with `logax` and `onceler`
 4. Edit your .bashrc or .profile: `export PATH=$PATH:/some/dir/node_modules`
 
-## onceler.js
-`onceler.js` is a node.js command line program that processes files 'once'.  You provide
-a json config file with the file name globs you want to process.  `onceler.js` keeps track of 
-which files have been processed already using dates.  `onceler.js` will search for 'new'
+## onceler
+`onceler` is a node.js command line program that processes files 'once'.  You provide
+a json config file with the file name globs you want to process.  `onceler` keeps track of 
+which files have been processed already using dates.  `onceler` will search for 'new'
 files working forward in time.  Onceler is intended to be run from a cron
 or a scheduled task.  It can handle gz files!
 
-TODO: Add example config and run of onceler.js
+TODO: Add example config and run of onceler
 
 ## Caveats
 This tool was developed for unstructured log files.  There is no problem using it
