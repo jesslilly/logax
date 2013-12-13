@@ -66,7 +66,7 @@ Awesome!  You can find more examples in the `test` directory.
 
 1. [Install Node](http://nodejs.org/download/)
 2. `npm install logax`
-3. `npm` will put `logax` and `onceler` in the PATH for you!
+3. `npm` will symlink `logax` and `onceler` into the PATH for you!
 
 ## onceler
 `onceler` is a node.js command line program that processes files 'once'.  You provide
@@ -80,7 +80,7 @@ TODO: Add example config and run of onceler
 ## Functionality
 
 * Search for hundreds of regex strings.
-* Capture one or many data value(s)!
+* Capture one or many data value(s) for each regex!
 * Provide customer converters to and perform calculations on captured value(s)!
 * Supply a default when there is no match.
 * Using onceler and logax together, you can search many files in parallel.
@@ -110,11 +110,11 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Stuff grabbed before a delimiter goes into each object.
-1. mkdir $workindDir if not exits.
+1. Stuff grabbed before a delimiter (header data?) goes into each object.
+1. mkdir $workindDir if not exists.
 1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.
-1. Implement watson or something else cool for logging.
+1. Implement winston or something else cool for logging.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
 1. Support calculated fields (Based on the values of already captured fields.  Post row processing step.)
