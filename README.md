@@ -32,14 +32,14 @@ $ cat my_parser.js
 ```js
 ...
 {
-	"searchFor" : "^JobID: ([0-9]*)$",
+	"searchFor" : /^JobID: ([0-9]*)$/,
 	"outputField" : "jobId"
 },
 {
 	"searchFor" : "^email: (.*)$",
 	"outputField" : "email"
 }
-// Note that the output is "captured" using regex parentheses.
+// Note: output is a regex "capture"; "searchFor" can be a string or regex type.
 ```
 
 ### 3. Run `logax` like this:
@@ -60,6 +60,8 @@ $ cat /some/dir/joblog1.json
 [ { "jobId" : 12345, "email" : "aaa@aaa.com" } ]
 ```
 
+Awesome!  You can find more examples in the `test` directory.
+
 ## Installation
 
 1. [Install Node](http://nodejs.org/download/)
@@ -78,6 +80,8 @@ TODO: Add example config and run of onceler
 ## Functionality
 
 * Search for hundreds of regex strings.
+* Capture one or many data value(s)!
+* Provide customer converters to and perform calculations on capture value(s)!
 * Supply defaults when there is no match.
 * Using onceler and logax together, you can search many files in parallel.
 * Configure your own log parser with onceler or a logax wrapper that also calls a http POST.
@@ -93,6 +97,10 @@ for any kind of text file regex parsing, but other tools may do a better job.  F
 example, if you want to parse html, xml or some other structured file format, you
 may want to try a parser for that markup.  It's your call.
 
+In your parser it is preferable to use a regex `"searchFor"` instead of a string.
+That's because if you have a literal `*` in your search you have to escape
+with a regex `\*` or double escape `\\*` if your `"searchFor"` is a string. 
+
 # Developer Documentation
 
 Contributions are welcome.  Make sure changes have tests.
@@ -101,7 +109,6 @@ Contributions are welcome.  Make sure changes have tests.
 This is roughly in priority order.
 
 1. Stuff grabbed before a delimiter goes into each object.
-1. Handle symbol characters in the Regex better (so we don't have to use double slash).
 1. mkdir $workindDir if not exits.
 1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.
