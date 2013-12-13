@@ -1,6 +1,6 @@
 {
   "name": "logax",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "logax",
   "main": "bin/logax.js",
   "scripts": {
