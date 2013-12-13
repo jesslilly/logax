@@ -100,6 +100,8 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
+1. Stuff grabbed before a delimiter goes into each object.
+1. Handle symbol characters in the Regex better (so we don't have to use double slash).
 1. mkdir $workindDir if not exits.
 1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.
@@ -114,6 +116,7 @@ This is roughly in priority order.
 1. Intelligently process truncated log files
 1. Search for strings on more than one line.  (Containing newlines)
 1. Allow search strings to be in xpath for true XML parsing?
+1. Test the parser for valid regexes. (Maybe low priority.  The error message right now is decent)
 
 ### Tools
 
