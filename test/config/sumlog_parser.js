@@ -9,7 +9,7 @@ var calcArea = function(captures) {
 };
 
 exports.delimiters = function() {
-	return [ "^Begin job log at .*$" ];
+	return [ /^Begin job log at .*$/ ];
 };
 
 exports.searchStrings = function() {
