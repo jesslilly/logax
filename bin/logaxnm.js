@@ -21,16 +21,17 @@ var Logax = function(args) {
 
 	// Private variables
 	var self = this;
-	var parserFile = args.parserFile;
+	var parserFile = path.resolve(process.cwd(), args.parserFile);
 	var input = args.input;
 	var outputDir = args.outputDir;
-	// reList should start out with nothing in case we find nothing in the text file.
+	// reList should start out with nothing in case we find nothing in the text
+	// file.
 	var retList = [];
 	var retIdx = -1;
 	var retObj = null;
-	// TODO: Better way to do this?
-	var searches = require("../" + parserFile).searchStrings();
-	var delimiters = require("../" + parserFile).delimiters();
+	// TODO: Is this an acceptable use of require?  (It works, but is async)
+	var searches = require(parserFile).searchStrings();
+	var delimiters = require(parserFile).delimiters();
 	
 	/**
 	 * @method
