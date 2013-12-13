@@ -103,6 +103,7 @@ This is roughly in priority order.
 1. mkdir $workindDir if not exits.
 1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.
+1. Implement watson or something else cool for logging.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
 1. Support Windows (Using *nix find command right now).
 1. Support calculated fields (Based on the values of already captured fields.  Post row processing step.)
