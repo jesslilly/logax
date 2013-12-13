@@ -81,13 +81,14 @@ TODO: Add example config and run of onceler
 
 * Search for hundreds of regex strings.
 * Capture one or many data value(s)!
-* Provide customer converters to and perform calculations on capture value(s)!
-* Supply defaults when there is no match.
+* Provide customer converters to and perform calculations on captured value(s)!
+* Supply a default when there is no match.
 * Using onceler and logax together, you can search many files in parallel.
-* Configure your own log parser with onceler or a logax wrapper that also calls a http POST.
+* Configure your own log parser with onceler.
+* Use a wrapper around logax that also inserts the json into your db!
 * Supports *.gz files.
 * Can parse a single job log or multiple jobs in one log (with a delimiter).
-* JSON array of objets output
+* JSON array of objects output
 * Test coverage
 * Available from npm: https://npmjs.org/package/logax
 
@@ -99,7 +100,8 @@ may want to try a parser for that markup.  It's your call.
 
 In your parser it is preferable to use a regex `"searchFor"` instead of a string.
 That's because if you have a literal `*` in your search you have to escape
-with a regex `\*` or double escape `\\*` if your `"searchFor"` is a string. 
+with a regex `\*` or double escape `\\*` if your `"searchFor"` is a string.  Double 
+escaping is just annoying.
 
 # Developer Documentation
 
