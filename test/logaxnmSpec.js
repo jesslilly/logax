@@ -73,6 +73,10 @@ describe('Logax parse', function() {
 // Test the command line application and sum logs at the same time.
 describe('logax.js command line', function() {
 	var SUMLOG_OUTPUT = [ {
+		jobCount : 2,
+		submitAt : '2013-11-26T18:50:00.000Z',
+		database : 'Z_500_DB',
+		orderId : 555,
 		startAt : '2013-11-26T18:50:43.000Z',
 		logVersion : '1.0.0',
 		jobId : '12345',
@@ -81,6 +85,10 @@ describe('logax.js command line', function() {
 		elapsedTime : '1000',
 		endAt : '2013-11-26T18:50:44.000Z'
 	}, {
+		jobCount : 2,
+		submitAt : '2013-11-26T18:50:00.000Z',
+		database : 'Z_500_DB',
+		orderId : 555,
 		startAt : '2013-11-26T18:51:43.000Z',
 		logVersion : '2.0.1',
 		jobId : '12346',

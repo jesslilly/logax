@@ -80,6 +80,7 @@ TODO: Add example config and run of onceler
 ## Functionality
 
 * Search for hundreds of regex strings.
+* JSON array of objects output
 * Capture one or many data value(s) for each regex!
 * Provide customer converters to and perform calculations on captured value(s)!
 * Supply a default when there is no match.
@@ -88,7 +89,8 @@ TODO: Add example config and run of onceler
 * Use a wrapper around logax that also inserts the json into your db!
 * Supports *.gz files.
 * Can parse a single job log or multiple jobs in one log (with a delimiter).
-* JSON array of objects output
+* Values captured before a delimiter go into each object.
+* If you don't have delimiters, the output will be one object.
 * Test coverage
 * Available from npm: https://npmjs.org/package/logax
 
@@ -110,7 +112,6 @@ Contributions are welcome.  Make sure changes have tests.
 ### Future Enhancements
 This is roughly in priority order.
 
-1. Stuff grabbed before a delimiter (header data?) goes into each object.
 1. mkdir $workindDir if not exists.
 1. Uncompress .Z Files.
 1. Have a template or some way of generating a oncler or logax config file.

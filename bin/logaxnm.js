@@ -29,9 +29,15 @@ var Logax = function(args) {
 	var retList = [];
 	var retIdx = -1;
 	var retObj = null;
-	// TODO: Is this an acceptable use of require?  (It works, but is async)
+	// TODO: Is this an acceptable use of require? (It works, but is async)
 	var searches = require(parserFile).searchStrings();
 	var delimiters = require(parserFile).delimiters();
+	// We are in the header until we match a delimiter.
+	// If there are no delimiters, output a single object in the array.
+	var inHeader = (delimiters.length > 0) ? true : false;
+	// An object that we use to append() having all configured defaults and
+	// header fields.
+	var defaultObj = {};
 	
 	/**
 	 * @method
@@ -42,6 +48,22 @@ var Logax = function(args) {
 	 */
 	this.createOutputFileName = function() {
 		return outputDir +  path.sep + path.basename(input, path.extname(input)) + ".json";
+	};
+	
+	/**
+	 * @method
+	 * @private
+	 * @description Populate the defaultObj with configured defaults.
+	 * @return {Object} - defaultObj.
+	 */
+	this.initDefaultObj = function() {
+		var defObj = {};
+		searches.forEach(function(search) {
+			if ("default" in search) {
+				defObj[search.outputField] = search.default;
+			}
+		});
+		return defObj;
 	};
 	
 	/**
@@ -65,11 +87,10 @@ var Logax = function(args) {
 	 * @return {void}
 	 */
 	var append = function() {
-		retList.push({});
+		// Make a copy of defaultObj and add it to the return array.
+		retList.push(JSON.parse(JSON.stringify(defaultObj)));
 		retObj = retList[++retIdx];
-
-		// Fill in the defaults
-		addDefaults();
+		inHeader = false;
 	};
 	
 	/**
@@ -119,13 +140,17 @@ var Logax = function(args) {
 				// Default behavior is to grab $1.
 				value = matchedText[1];
 			}
-			
-			// It's possible the file does not have a leading delimiter.
-			if (retObj === null) {
-				append();
-			}
 
-			retObj[search.outputField] = value;
+			if (inHeader) {
+				defaultObj[search.outputField] = value;
+			}
+			else {
+				// It's possible the file does not have a leading delimiter.
+				if (retObj === null) {
+					append();
+				}
+				retObj[search.outputField] = value;
+			}
 		}
 		return;
 	};
@@ -142,6 +167,8 @@ var Logax = function(args) {
 	this.parse = function(cb) {
 
 		try {
+			
+			defaultObj = this.initDefaultObj();
 
 			// Open input file for each line.
 			require('readline').createInterface({

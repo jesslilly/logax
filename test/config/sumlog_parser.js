@@ -8,12 +8,38 @@ var calcArea = function(captures) {
 	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
 };
 
+var toInt = function(captures) {
+	return parseInt(captures[1], 10);
+};
+
 exports.delimiters = function() {
 	return [ /^Begin job log at .*$/ ];
 };
 
 exports.searchStrings = function() {
+//	
+// Jobs will be logged into database: Z_500_DB
+// Super Order ID: 555
 	return [ {
+		searchFor : /^([0-9]+) jobs submitted at /,
+		sample: "2 jobs submitted at Tue Nov 26 13:50:00 EST 2013",
+		converter: toInt,
+		outputField : "jobCount"
+	},{
+		searchFor : /^[0-9]+ jobs submitted at (.*)/,
+		sample: "2 jobs submitted at Tue Nov 26 13:50:00 EST 2013",
+		converter: convertToISO,
+		outputField : "submitAt"
+	},{
+		searchFor : /^Jobs will be logged into database: (\w*)/,
+		sample: "Jobs will be logged into database: Z_500_DB",
+		outputField : "database"
+	},{
+		searchFor : /^Super Order ID: ([0-9]*)$/,
+		sample: "Super Order ID: 555",
+		converter: toInt,
+		outputField : "orderId"
+	},{
 		searchFor : /^JobID: ([0-9]*)$/,
 		sample: "JobID: 12345",
 		outputField : "jobId"

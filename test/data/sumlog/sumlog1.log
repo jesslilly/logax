@@ -1,3 +1,11 @@
+=============================================
+Header
+=============================================
+Sometimes there is header data before any delimiter is reached.
+That data can apply to all objects in the output json.
+2 jobs submitted at Tue Nov 26 13:50:00 EST 2013
+Jobs will be logged into database: Z_500_DB
+Super Order ID: 555
 
 =============================================
 Begin job log at Tue Nov 26 13:50:43 EST 2013
