@@ -156,9 +156,9 @@ var Onceler = function(args) {
 		}
 
 		var file2 = cfg.workingDir + path.sep + path.basename(file1, ".gz");
-		console.info("unzip from");
-		console.info(file1);
-		console.info(file2);
+		//console.info("unzip from");
+		//console.info(file1);
+		//console.info(file2);
 
 		var inp = fs.createReadStream(file1);
 		var out = fs.createWriteStream(file2);
@@ -168,7 +168,7 @@ var Onceler = function(args) {
 			end : false
 		});
 		reader.on('end', function() {
-			console.info("Finished unzipping file");
+			//console.info("Finished unzipping file");
 			cb.call(null, file2);
 		});
 	};
