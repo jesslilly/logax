@@ -27,11 +27,13 @@ describe('Logax createOutputFileName', function() {
 });
 
 describe('Logax parse', function() {
-	
+
 	// Test $$dataSourceFile
 	// Test a converter that adds extra fields to the object.
+	// Test passing retObj to converter while logax is still inHeader. (fix) 
 	var JOBLOG_OUTPUT = [ {
 		"jobId" : "12345",
+		"logType" : "job",
 		"email" : "abc@abc.com",
 		"logVersion" : "1.0.0",
 		"startAt" : "2013-11-26T18:50:43.000Z",
@@ -140,4 +142,5 @@ describe('logax.js command line', function() {
 
 });
 
-// TODO: Add test for text file that results in zero matches.  Should output [] JSON.
+// TODO: Add test for text file that results in zero matches. Should output []
+// JSON.

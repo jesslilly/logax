@@ -28,7 +28,7 @@ var Logax = function(args) {
 	// file.
 	var retList = [];
 	var retIdx = -1;
-	var retObj = null;
+	var curObj = null;
 	// TODO: Is this an acceptable use of require? (It works, but is async)
 	var searches = require(parserFile).searchStrings();
 	var delimiters = require(parserFile).delimiters();
@@ -80,7 +80,7 @@ var Logax = function(args) {
 	var append = function() {
 		// Make a copy of defaultObj and add it to the return array.
 		retList.push(JSON.parse(JSON.stringify(defaultObj)));
-		retObj = retList[++retIdx];
+		curObj = retList[++retIdx];
 		inHeader = false;
 	};
 	
@@ -124,7 +124,7 @@ var Logax = function(args) {
 			var value = "";
 			if ("converter" in search) {
 				try {
-					value = search.converter.call(null, matchedText, retObj);
+					value = search.converter.call(null, matchedText, curObj);
 				} catch (err) {
 					var message = "Problem with converter for " + search.outputField + "!";
 					message += "\nSearch object: " + JSON.stringify(search);
@@ -138,16 +138,8 @@ var Logax = function(args) {
 				value = matchedText[1];
 			}
 
-			if (inHeader) {
-				defaultObj[search.outputField] = value;
-			}
-			else {
-				// It's possible the file does not have a leading delimiter.
-				if (retObj === null) {
-					append();
-				}
-				retObj[search.outputField] = value;
-			}
+			// Here curObj could be pointing to defaultObj.
+			curObj[search.outputField] = value;
 		}
 		return;
 	};
@@ -166,6 +158,8 @@ var Logax = function(args) {
 		try {
 			
 			defaultObj = this.initDefaultObj();
+			// We parse header fields into the defaultObj.
+			curObj = defaultObj;
 
 			// Open input file for each line.
 			require('readline').createInterface({
@@ -181,6 +175,11 @@ var Logax = function(args) {
 				// Reached EOF.
 				// Write output file.
 				var outputFile = self.createOutputFileName();
+				
+				// It's possible the file does not have a leading delimiter.
+				if (retList.length === 0) {
+					append();
+				}
 				
 				// Create as tmp file in case some other process is looking for
 				// json files.

@@ -1,13 +1,19 @@
 
-var convertToISO = function(captures) {
-	var date = new Date(captures[1]);
+var toISO = function(string) {
+	var date = new Date(string);
 	return date.toISOString();
 };
-
+var convertToISO = function(captures) {
+	return toISO(captures[1]);
+};
 var calcArea = function(captures, retObj) {
 	retObj.width = (captures[2] - captures[1]);
 	retObj.height = (captures[4] - captures[3]);
 	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
+};
+var parseHeader = function(captures, retObj) {
+	retObj.logType = captures[1];
+	return toISO(captures[2]);
 };
 
 exports.delimiters = function() {
@@ -30,9 +36,10 @@ exports.searchStrings = function() {
 		"default": "1.0.0",
 		outputField : "logVersion"
 	}, {
-		searchFor : /^Begin job log at (.*)$/,
+		searchFor : /^Begin (job) log at (.*)$/,
 		sample : "Begin job log at Tue Nov 26 13:50:43 EST 2013",
-		converter: convertToISO,
+		comment : "The search captures 2 outputFields.  jobType and startAt.",
+		converter: parseHeader,
 		outputField : "startAt"
 	}, {
 		searchFor : /^This thing sometimes happens: ([0-9]*) ([0-9]*) ([0-9]*) ([0-9]*)/,
