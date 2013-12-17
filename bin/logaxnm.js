@@ -60,24 +60,15 @@ var Logax = function(args) {
 		var defObj = {};
 		searches.forEach(function(search) {
 			if ("default" in search) {
-				defObj[search.outputField] = search.default;
+				if (search.default === "$$dataSourceFile") {
+					defObj[search.outputField] = input;
+				}
+				else {
+					defObj[search.outputField] = search.default;
+				}
 			}
 		});
 		return defObj;
-	};
-	
-	/**
-	 * @method
-	 * @private
-	 * @description Populate the defaults into the retList.
-	 * @return {void}
-	 */
-	var addDefaults = function() {
-		searches.forEach(function(search) {
-			if ("default" in search) {
-				retObj[search.outputField] = search.default;
-			}
-		});
 	};
 	
 	/**
@@ -120,6 +111,12 @@ var Logax = function(args) {
 		// Use a c-style for loop so we can break and continue.
 		for ( var idx = 0; idx < searches.length; idx += 1) {
 			var search = searches[idx];
+			
+			// Some search objects may not have a "searchFor" and only supply defaults.
+			if (!("searchFor" in search)) {
+				continue;
+			}
+			
 			var matchedText = new RegExp(search.searchFor).exec(line);
 			if (matchedText === null) {
 				continue;
@@ -127,7 +124,7 @@ var Logax = function(args) {
 			var value = "";
 			if ("converter" in search) {
 				try {
-					value = search.converter.call(null, matchedText);
+					value = search.converter.call(null, matchedText, retObj);
 				} catch (err) {
 					var message = "Problem with converter for " + search.outputField + "!";
 					message += "\nSearch object: " + JSON.stringify(search);

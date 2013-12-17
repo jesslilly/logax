@@ -27,6 +27,9 @@ describe('Logax createOutputFileName', function() {
 });
 
 describe('Logax parse', function() {
+	
+	// Test $$dataSourceFile
+	// Test a converter that adds extra fields to the object.
 	var JOBLOG_OUTPUT = [ {
 		"jobId" : "12345",
 		"email" : "abc@abc.com",
@@ -34,7 +37,10 @@ describe('Logax parse', function() {
 		"startAt" : "2013-11-26T18:50:43.000Z",
 		"area" : 7194601,
 		"elapsedTime" : "1000",
-		"endAt" : "2013-11-26T18:50:44.000Z"
+		"endAt" : "2013-11-26T18:50:44.000Z",
+		"dataSourceFile" : "test/data/joblog/joblog1.log",
+		"width" : 2399,
+		"height" : 2999
 	} ];
 	var asyncFinished = false;
 	var fileData = "";

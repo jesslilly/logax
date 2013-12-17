@@ -4,7 +4,9 @@ var convertToISO = function(captures) {
 	return date.toISOString();
 };
 
-var calcArea = function(captures) {
+var calcArea = function(captures, retObj) {
+	retObj.width = (captures[2] - captures[1]);
+	retObj.height = (captures[4] - captures[3]);
 	return (captures[2] - captures[1]) * (captures[4] - captures[3]);
 };
 
@@ -25,7 +27,7 @@ exports.searchStrings = function() {
 	}, {
 		searchFor : /^Foo log version: (.*)/,
 		sample: "Foo log version: 2.0.1",
-		default: "1.0.0",
+		"default": "1.0.0",
 		outputField : "logVersion"
 	}, {
 		searchFor : /^Begin job log at (.*)$/,
@@ -51,5 +53,9 @@ exports.searchStrings = function() {
 		sample : "  End job log at Tue Nov 26 13:50:44 EST 2013",
 		converter: convertToISO,
 		outputField : "endAt"
+	}, {
+		comment : "Put the parsed file name into every object.  $$dataSourceFile is a key word.",
+		"default": "$$dataSourceFile",
+		outputField : "dataSourceFile",
 	} ];
 };

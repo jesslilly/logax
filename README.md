@@ -90,8 +90,11 @@ TODO: Add example config and run of onceler
 * Supports *.gz files.
 * Can parse a single job log or multiple jobs in one log (with a delimiter).
 * Values captured before a delimiter go into each object.
+* Parsed file name is available in the output JSON.
+* Pass retObj into the converter so you can add multiple fields with one regex match.
 * If you don't have delimiters, the output will be one object.
 * Test coverage
+* See examples of this functionality in the test directory.
 * Available from npm: https://npmjs.org/package/logax
 
 ## Caveats
