@@ -16,10 +16,12 @@ exports.delimiters = function() {
 	return [ /^Begin job log at .*$/ ];
 };
 
+// This will prevent summary messages from being parsed into the last object.
+exports.terminators = function() {
+	return [ /^Begin job log summary/ ];
+};
+
 exports.searchStrings = function() {
-//	
-// Jobs will be logged into database: Z_500_DB
-// Super Order ID: 555
 	return [ {
 		searchFor : /^([0-9]+) jobs submitted at /,
 		sample: "2 jobs submitted at Tue Nov 26 13:50:00 EST 2013",
@@ -71,5 +73,9 @@ exports.searchStrings = function() {
 		sample : "  End job log at Tue Nov 26 13:50:44 EST 2013",
 		converter: convertToISO,
 		outputField : "endAt"
+	}, {
+		searchFor : /(.*ERROR.*)/,
+		sample : "ERROR: A bad thing happened.",
+		outputField : "errMsg"
 	} ];
 };

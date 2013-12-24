@@ -91,7 +91,8 @@ describe('logax.js command line', function() {
 		email : 'abc@abc.com',
 		area : 7194601,
 		elapsedTime : '1000',
-		endAt : '2013-11-26T18:50:44.000Z'
+		endAt : '2013-11-26T18:50:44.000Z',
+		errMsg : 'ERROR: Oops!  There was a problem with this job.'
 	}, {
 		jobCount : 2,
 		submitAt : '2013-11-26T18:50:00.000Z',

@@ -21,6 +21,7 @@ Here is some json we may want to extract: { "a" : 1, "b" : 2, "c" : 3 }
 a,b,c
 This thing sometimes happens: 1 2400 1 3000
 some junk
+ERROR: Oops!  There was a problem with this job.
 Elapsed time: 1000ms
 =============================================
   End job log at Tue Nov 26 13:50:44 EST 2013
@@ -49,3 +50,9 @@ Elapsed time: 1001ms
   End job log at Tue Nov 26 13:51:44 EST 2013
 =============================================
 
+=============================================
+Begin job log summary ...
+=============================================
+There were 2 jobs.
+JobID: 12345 had an ERROR.
+We need to use "terminators" /^Begin job log summary/, such that this summary ERROR does not get parsed into JobID: 12346

@@ -30,8 +30,10 @@ var Logax = function(args) {
 	var retIdx = -1;
 	var curObj = null;
 	// TODO: Is this an acceptable use of require? (It works, but is async)
-	var searches = require(parserFile).searchStrings();
-	var delimiters = require(parserFile).delimiters();
+	var pf = require(parserFile);
+	var searches = ("searchStrings" in pf) ? pf.searchStrings() : [];
+	var delimiters = ("delimiters" in pf) ? pf.delimiters() : [];
+	var terminators = ("terminators" in pf) ? pf.terminators() : [];
 	// We are in the header until we match a delimiter.
 	// If there are no delimiters, output a single object in the array.
 	var inHeader = (delimiters.length > 0) ? true : false;
@@ -93,12 +95,22 @@ var Logax = function(args) {
 	 *            line - callback when it's done (async).
 	 * @return {void}
 	 */
-	var parseLine = function(line) {
+	var parseLine = function(line, rl) {
 		// Process one line at a time.
 		// (What is more efficient, parsing each line or running many
 		// greps?)
-		
-		// First check if line is a delimiter.
+
+		// Check if line is a terminator.
+		var termMatch = terminators.filter(function(term, idx) {
+			return (new RegExp(term).exec(line));
+		});
+		if (termMatch.length > 0) {
+			// Stop reading the file line by line.
+			rl.close();
+			return;
+		}
+
+		// Check if line is a delimiter.
 		var delimMatch = delimiters.filter(function(delim, idx) {
 			return (new RegExp(delim).exec(line));
 		});
@@ -112,7 +124,8 @@ var Logax = function(args) {
 		for ( var idx = 0; idx < searches.length; idx += 1) {
 			var search = searches[idx];
 			
-			// Some search objects may not have a "searchFor" and only supply defaults.
+			// Some search objects may not have a "searchFor" and only supply
+			// defaults.
 			if (!("searchFor" in search)) {
 				continue;
 			}
@@ -162,13 +175,13 @@ var Logax = function(args) {
 			curObj = defaultObj;
 
 			// Open input file for each line.
-			require('readline').createInterface({
+			var rl = require('readline').createInterface({
 				input : fs.createReadStream(input),
 				terminal : false
 			}).on('line', function(line) {
 
 				// Process the line.
-				parseLine(line);
+				parseLine(line, rl);
 
 			}).on('close', function() {
 				

@@ -16,12 +16,14 @@ var parseHeader = function(captures, retObj) {
 	return toISO(captures[2]);
 };
 
+// Test: There is purposely no terminator here to test no terminators!
+
 exports.delimiters = function() {
 	return [];
 };
 
 exports.searchStrings = function() {
-	// searchFor can be a string or a regex.
+	// Test: searchFor can be a string or a regex.
 	return [ {
 		searchFor : "^JobID: ([0-9]*)$",
 		sample: "JobID: 12345",
