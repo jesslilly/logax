@@ -88,6 +88,7 @@ TODO: Add example config and run of onceler
 * Configure your own log parser with onceler.
 * Use a wrapper around logax that also inserts the json into your db!
 * Supports *.gz files.
+* Supports terminators, so you can stop parsing after certain regexs. (Summary sections...)
 * Can parse a single job log or multiple jobs in one log (with a delimiter).
 * Values captured before a delimiter go into each object.
 * Parsed file name is available in the output JSON.
