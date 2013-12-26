@@ -67,7 +67,13 @@ $ cat /some/dir/joblog1.json
 ```
 
 ```js
-[ { "jobId" : 12345, "email" : "aaa@aaa.com" } ]
+[
+        {
+                "email": "aaa@aaa.com",
+                "startTime": "Tue Nov 26 13:50:43 EST 2013",
+                "jobId": 12345
+        }
+]
 ```
 
 Awesome!  You can find more examples in the `test` directory.
