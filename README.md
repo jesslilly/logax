@@ -31,14 +31,24 @@ $ cat my_parser.js
 
 ```js
 ...
-{
-	"searchFor" : /^JobID: ([0-9]*)$/,
-	"outputField" : "jobId"
-},
-{
-	"searchFor" : "^email: (.*)$",
-	"outputField" : "email"
-}
+exports.searchStrings = function() {
+	return [ {
+		"searchFor" : /^Begin job log at (.*)/,
+		"outputField" : "startTime"
+	},
+	{
+		"searchFor" : /^JobID: ([0-9]*)$/,
+		"converter" : function(captures) {
+			return parseInt(captures[1], 10);
+		},
+		"outputField" : "jobId"
+	},
+	{
+		"searchFor" : "^email: (.*)$",
+		"default" : null,
+		"outputField" : "email"
+	} ];
+};
 // Note: output is a regex "capture"; "searchFor" can be a string or regex type.
 ```
 
