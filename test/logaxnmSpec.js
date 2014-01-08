@@ -22,7 +22,7 @@ describe('Logax createOutputFileName', function() {
 			input : 'test/data/joblog/joblog1.log',
 			outputDir : 'test/output'
 		});
-		expect(l2.createOutputFileName()).toEqual('test/output/joblog1.json');
+		expect(l2.createOutputFileName()).toEqual('test/output/joblog1.log.json');
 	});
 });
 
@@ -61,7 +61,7 @@ describe('Logax parse', function() {
 		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			var exists = fs.existsSync('test/output/joblog1.json');
+			var exists = fs.existsSync('test/output/joblog1.log.json');
 			expect(exists).toEqual(true);
 		});
 	});
@@ -72,7 +72,7 @@ describe('Logax parse', function() {
 		}, "logax.parse never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			fileData = fs.readFileSync('test/output/joblog1.json');
+			fileData = fs.readFileSync('test/output/joblog1.log.json');
 			expect(JSON.parse(fileData)).toEqual(JOBLOG_OUTPUT);
 		});
 	});
@@ -125,7 +125,7 @@ describe('logax.js command line', function() {
 		}, "logax.js never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			var exists = fs.existsSync('test/output/sumlog1.json');
+			var exists = fs.existsSync('test/output/sumlog1.log.json');
 			expect(exists).toEqual(true);
 		});
 	});
@@ -136,7 +136,7 @@ describe('logax.js command line', function() {
 		}, "logax.js never completed.  Check for missing callback.", 10000);
 
 		runs(function() {
-			fileData = fs.readFileSync('test/output/sumlog1.json');
+			fileData = fs.readFileSync('test/output/sumlog1.log.json');
 			expect(JSON.parse(fileData)).toEqual(SUMLOG_OUTPUT);
 		});
 	});

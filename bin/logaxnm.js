@@ -44,12 +44,15 @@ var Logax = function(args) {
 	/**
 	 * @method
 	 * @private
-	 * @description Create an output file name using the input file name and
-	 *              outputDir and ".json".
+	 * @description Create an output file name using the outputDir, input file
+	 *              name, and ".json". Don't replace the input file name's
+	 *              extension else it might break its uniqueness. With many
+	 *              logax processes running at the same time they could stomp on
+	 *              each other's output file.
 	 * @return {string} - output file name.
 	 */
 	this.createOutputFileName = function() {
-		return outputDir +  path.sep + path.basename(input, path.extname(input)) + ".json";
+		return outputDir +  path.sep + path.basename(input) + ".json";
 	};
 	
 	/**
