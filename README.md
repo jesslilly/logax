@@ -82,7 +82,7 @@ Awesome!  You can find more examples in the `test` directory.
 
 1. [Install Node](http://nodejs.org/download/)
 2. `npm install logax`
-3. `npm` will symlink `logax` and `onceler` into the PATH for you!
+3. `npm` will symlink `logax` and `onceler` into the PATH for you!  You can also use `$(npm bin)/logax` in your project directory.
 
 ## onceler
 `onceler` is a node.js command line program that processes files 'once'.  You provide
