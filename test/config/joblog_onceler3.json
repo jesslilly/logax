@@ -1,9 +1,9 @@
 {
 	"searchDirs": [
-		"test/data/joblog2"
+		"test/data/joblog"
 	],
 	"fileGlob": "joblog*.log",
-	"command": "cat %s > %s/cmd-line-test.txt",
+	"command": "test/config/joblog_onceler3_cmd.sh %s %s",
 	"workingDir": "test/output",
 	"newerThan": "2013-01-01 16:26:34.6783374290",
 	"maxFiles": "2"

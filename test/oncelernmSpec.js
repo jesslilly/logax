@@ -226,6 +226,7 @@ describe('onceler.js command line', function() {
 		if (error) {
 			console.info(error);
 		}
+		console.info(stdout);
 		asyncFinished = true;
 	});
 
@@ -238,5 +239,54 @@ describe('onceler.js command line', function() {
 			var exists = fs.existsSync('test/output/cmd-line-test.txt');
 			expect(exists).toEqual(true);
 		});
+	});
+	it('should process > 1 file and update cfg.newerThan with the highest date.', function() {
+		waitsFor(function() {
+			return asyncFinished;
+		}, "onceler.js never completed.  Check for missing callback.", 10000);
+
+		runs(function() {
+			var cfg = JSON.parse(fs.readFileSync('test/output/joblog_onceler3.json'));
+			expect(cfg.newerThan).toEqual("2013-12-10 16:16:09.860");
+		});
+	});
+});
+
+// Parameterized test:
+var largerDateTest = function(date1, date2, expectedSort) {
+	describe('Onceler largerDate', function() {
+
+		it('should return the larger of 2 dates ' + date1 + " and " + date2, function() {
+			var o1 = new Onceler({
+				cfgFile : "test/output/joblog_onceler2.json"
+			});
+			expect(o1.largerDate(date1, date2)).toEqual(expectedSort);
+		});
+	});
+};
+var largerDateInputs = [ {
+	date1 : "2014-01-01 00:00:00.001",
+	date2 : "2014-01-01 00:00:00.000",
+	expectedSort : 1
+}, {
+	date1 : "2014-01-02 00:00:00.000",
+	date2 : "2014-01-02 00:00:00.001",
+	expectedSort : -1
+}, {
+	date1 : "2014-01-01 00:00:00.000",
+	date2 : "2014-01-01 00:00:00.000",
+	expectedSort : 0
+} ];
+largerDateInputs.forEach(function(row) {
+	largerDateTest(row.date1, row.date2, row.expectedSort);
+});
+
+describe('Onceler yyyyMMddHHmmssSSS', function() {
+
+	it('should return fmt correctly', function() {
+		var o1 = new Onceler({
+			cfgFile : "test/output/joblog_onceler2.json"
+		});
+		expect(o1.yyyyMMddHHmmssSSS("2014-01-01 00:00:00")).toEqual("2014-01-01 00:00:00.000");
 	});
 });

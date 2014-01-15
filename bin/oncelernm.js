@@ -21,6 +21,7 @@ var Onceler = function(args) {
 	var cfgFile = args.cfgFile;
 	var cfg = {};
 	var self = this;
+	var datesProcessed = [];
 
 	/**
 	 * @method
@@ -149,16 +150,16 @@ var Onceler = function(args) {
 	 * @return {void}
 	 */
 	var gunzip = function(file1, cb) {
-		
+
 		if (path.extname(file1) !== ".gz") {
 			cb.call(null, file1);
 			return;
 		}
 
 		var file2 = cfg.workingDir + path.sep + path.basename(file1, ".gz");
-		//console.info("unzip from");
-		//console.info(file1);
-		//console.info(file2);
+		// console.info("unzip from");
+		// console.info(file1);
+		// console.info(file2);
 
 		var inp = fs.createReadStream(file1);
 		var out = fs.createWriteStream(file2);
@@ -168,7 +169,7 @@ var Onceler = function(args) {
 			end : false
 		});
 		reader.on('end', function() {
-			//console.info("Finished unzipping file");
+			// console.info("Finished unzipping file");
 			cb.call(null, file2);
 		});
 	};
@@ -184,7 +185,7 @@ var Onceler = function(args) {
 	 * @return {void}
 	 */
 	this.processFile = function(mfile, cb) {
-		
+
 		var file2proc = "";
 
 		// Unzip and move if necessary.
@@ -203,13 +204,65 @@ var Onceler = function(args) {
 				}
 				// console.log(stdout);
 
-				// Immediately update the cfg "newerThan" field.
-				// If this process is killed somewhere in between we
-				// reprocess only 1 file.
-				cfg.newerThan = mfile.mtime;
+				// Mark the max compeleted date.
+				// We have to do this funky logic b/c onceler will run (logax)
+				// processes in parallel.
+				datesProcessed.push(mfile.mtime);
+				datesProcessed.sort(self.largerDate);
+				cfg.newerThan = self.yyyyMMddHHmmssSSS(datesProcessed[datesProcessed.length - 1]);
 				self.saveCfgFile(cb);
 			});
 		});
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description Take 2 date strings. Return 1 if input1 > input2. Else
+	 *              return -1. For use with sorting.
+	 * @param {string}
+	 *            input1 - Some string fmt with milliseconds preferably.
+	 * @param {string}
+	 *            input2 - Some string fmt with milliseconds preferably.
+	 * @return {integer} output - 1, -1, or zero.
+	 */
+	this.largerDate = function(input1, input2) {
+		var date1 = new Date(input1);
+		var date2 = new Date(input2);
+		if (input1 === input2) {
+			return 0;
+		}
+		if (date1 > date2) {
+			return 1;
+		} else {
+			return -1;
+		}
+		return 0;
+	};
+
+	/**
+	 * @method
+	 * @public
+	 * @description Date in yyyy-MM-dd HH:mm:ss.SSS format.
+	 * @param {string}
+	 *            input - Some string date fmt with milliseconds preferably.
+	 * @return {string} date - Date in yyyy-MM-dd HH:mm:ss.SSS format.
+	 * @throws {Error}
+	 *             err - Error message if both input date string is bad.
+	 */
+	this.yyyyMMddHHmmssSSS = function(input) {
+		var d = new Date(input);
+		if (d.toString() === "Invalid Date") {
+			throw "Cannot determing largerDate of [" + input1 + "] and [" + input2 + "]";
+		}
+		var pad = function(width, input) {
+			var padded = input.toString();
+			while (padded.length < width) {
+				padded = "0" + padded;
+			}
+			return padded;
+		};
+		return d.getFullYear().toString() + '-' + pad(2, d.getMonth() + 1) + '-' + pad(2, d.getDate()) + ' ' + pad(2, d.getHours()) + ':' + pad(2, d.getMinutes()) + ':' + pad(2, d.getSeconds()) + '.' + pad(3, d.getMilliseconds());
 	};
 
 	/**
