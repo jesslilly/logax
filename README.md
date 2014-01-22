@@ -63,7 +63,7 @@ $ logax --parserFile my_parser.js \
 ### 4. You get JSON output like this:
 
 ```bash
-$ cat /some/dir/joblog1.json
+$ cat /some/dir/joblog1.log.json
 ```
 
 ```js
