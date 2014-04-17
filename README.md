@@ -134,6 +134,7 @@ This is roughly in priority order.
 
 1. mkdir $workindDir if not exists.
 1. Uncompress .Z Files.
+1. Functionality to alert on certain conditions (use onceler to also alert on errors in the logs)
 1. Have a template or some way of generating a oncler or logax config file.
 1. Implement winston or something else cool for logging.
 1. Add optimization when only searching for a few regexes.  Grep or some other cross platform search would be more efficient.
